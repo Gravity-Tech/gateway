@@ -4,6 +4,7 @@ ethereum:
 	@type "npm" 2> /dev/null || echo 'Please install node.js and npm'
 	@type "solc" 2> /dev/null || echo 'Please install solc'
 	@type "abigen" 2> /dev/null || echo 'Please install abigen'
+	abigen --pkg=erc20 --sol="./contracts/ethereum/Token.sol" --out="./abi/ethereum/erc20/erc20.go"
 	abigen --pkg=luport --sol="./contracts/ethereum/LUPort.sol" --out="./abi/ethereum/luport/luport.go"
 	abigen --pkg=ibport --sol="./contracts/ethereum/IBPort.sol" --out="./abi/ethereum/ibport/ibport.go"
 	echo "Ethereum abi updated"
