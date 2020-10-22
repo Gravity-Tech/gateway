@@ -1,0 +1,119 @@
+
+{-# STDLIB_VERSION 4 #-}
+{-# CONTENT_TYPE DAPP #-}
+{-# SCRIPT_TYPE ACCOUNT #-}
+
+func getIntegerByKey(key: String) = {
+    match (getInteger(this, key)) {
+        case v:Int => v
+        case _ => 0
+      } 
+}
+func getBytesByKey(key: String) = {
+    match (getBinary(this, key)) {
+        case v:ByteVector => v
+        case _ => base64'0'
+    }
+}
+func getStringByKey(key: String) = {
+    match (getString(this, key)) {
+        case v:String => v
+        case _ => ""
+    }
+}
+
+let AssetIdKey = "asset_id"
+let FirstRqKey = "first_rq"
+let LastRqKey = "last_rq"
+let NebulaAddressKey = "nebula_address"
+
+let nebulaAddress = addressFromStringValue(getStringByKey(NebulaAddressKey))
+let assetId = fromBase58String(getStringByKey(AssetIdKey))
+let firstRq = getStringByKey(FirstRqKey)
+let lastRq = getStringByKey(LastRqKey)
+
+func getNextRqKey(id: String) = "next_rq_" + id
+func getPrevRqKey(id: String) = "prev_rq_" + id
+func getRqAmountKey(id: String) = "rq_amount_" + id
+func getRqStatusKey(id: String) = "rq_status_" + id
+func getRqTypeKey(id: String) = "rq_type_" + id
+
+func getRqStatus(id: String) = getIntegerByKey(getRqStatusKey(id))
+func getNextRq(id: String) = getStringByKey(getNextRqKey(id))
+func getPrevRq(id: String) = getStringByKey(getPrevRqKey(id))
+
+#----Statuses-----
+let NEW = 1
+let COMPLETED = 2
+
+#----Actions------
+let MINT = 1
+let CHANGESTATUS = 2
+
+#----Types--------
+let ISSUETYPE = 1
+let BURNTYPE = 2
+
+func mint(rqId: String, amount: Int, receiver: Address) = {
+  if isDefined(getRqStatus(rqId)) then throw("invalid status key")
+  else
+    [
+      Reissue(assetId, amount, true),
+      IntegerEntry(getRqStatusKey(rqId), COMPLETED),
+      IntegerEntry(getRqTypeKey(rqId), ISSUETYPE)
+    ]
+}
+
+func changeStatus(rqId: String, newStatus: Int) = {
+  let nextRq = getNextRq(rqId)
+  let prevRq = getPrevRq(rqId)
+  [
+    IntegerEntry(getRqStatusKey(rqId), newStatus),
+
+    StringEntry(FirstRqKey, if (firstRq == rqId) then getNextRq(rqId) else firstRq),
+    StringEntry(LastRqKey, if (lastRq == rqId) then getPrevRq(rqId) else lastRq),
+    StringEntry(getNextRqKey(prevRq), nextRq),
+    StringEntry(getPrevRqKey(nextRq), prevRq)
+  ]
+}
+
+@Callable(i)
+func attachValue(v: ByteVector) = {
+  if (i.caller != nebulaAddress)
+    then throw("invalid sender")
+  else
+    let action = toInt(v.take(8))
+    let rqId = toBase58String(v.drop(8).take(32))
+
+    if action == MINT then
+      let amount = toInt(v.drop(8+32).take(8))
+      let receiver = addressFromStringValue(toBase58String(v.drop(8+32+8)))
+      mint(rqId, amount, receiver)
+    else if action == CHANGESTATUS then
+      let newStatus = toInt(v.drop(8+32))
+      changeStatus(rqId, newStatus)
+    else throw("invalid action")
+}
+
+@Callable(i)
+func createTransferUnwrapRq() = {
+    let pmt = value(i.payments[0])
+    let rqId = toBase58String(i.transactionId)
+    if (pmt.assetId != assetId) 
+        then throw("invalid asset in payments")
+    else {
+            [ 
+                StringEntry(FirstRqKey, if (firstRq == "") then rqId else firstRq),
+                StringEntry(LastRqKey, rqId),
+
+                StringEntry(getNextRqKey(lastRq), rqId),
+                StringEntry(getPrevRqKey(rqId), lastRq),
+            
+                IntegerEntry(getRqAmountKey(rqId), pmt.amount),
+                IntegerEntry(getRqStatusKey(rqId), NEW),
+                IntegerEntry(getRqTypeKey(rqId), BURNTYPE),
+                
+                Burn(assetId, pmt.amount)
+            ]
+    }
+}
