@@ -1,5 +1,6 @@
 pragma solidity >=0.6.0;
 
+
 import "./Token.sol";
 import "../../gravity-core/contracts/ethereum/contracts/interfaces/ISubscriberBytes.sol";
 import "../../gravity-core/contracts/ethereum/contracts/libs/Queue.sol";
@@ -89,6 +90,7 @@ contract IBPort is ISubscriberBytes {
     function changeStatus(uint swapId, RequestStatus newStatus) internal {
         require(swapStatus[swapId] == RequestStatus.New, "invalid request status");
         swapStatus[swapId] = newStatus;
+        QueueLib.drop(requestsQueue, bytes32(swapId));
     }
 
 
@@ -96,6 +98,7 @@ contract IBPort is ISubscriberBytes {
         unwrapRequests[requestPosition] = UnwrapRequest(msg.sender, receiver, amount);
         swapStatus[requestPosition] = RequestStatus.New;
         tokenAddress.burnFrom(msg.sender, amount);
+        QueueLib.push(requestsQueue, bytes32(requestPosition));
         emit RequestCreated(requestPosition, msg.sender, receiver, amount);
     }
 
