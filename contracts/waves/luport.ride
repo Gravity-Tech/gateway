@@ -72,7 +72,7 @@ func getRqReceiver(id: String) = getStringByKey(getRqReceiverKey(id))
 #-------------------Callable---------------------------
 
 @Callable(i)
-func attachData(v: ByteVector) = {
+func attachData(v: ByteVector, vPulseId: Int) = {
     let action = toInt(v.take(8))
     let rqId = toBase58String(v.drop(8).take(32))
     if (i.caller != nebulaAddress)
