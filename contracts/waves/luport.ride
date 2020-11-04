@@ -82,7 +82,7 @@ func attachData(v: ByteVector, vPulseId: Int) = {
         if (getRqStatus(rqId) != NONE)
             then throw("rq is exist")
         else {
-            let recipient = v.drop(48)
+            let recipient = v.drop(48).take(26)
             ScriptResult(
                 WriteSet(
                     [ 
