@@ -1,7 +1,7 @@
 pragma solidity >=0.6.0;
 
 
-import "./Token.sol";
+import "./Usdn.sol";
 import "../../gravity-core/contracts/ethereum/interfaces/ISubscriberBytes.sol";
 import "../../gravity-core/contracts/ethereum/libs/Queue.sol";
 
@@ -23,15 +23,15 @@ contract IBPort is ISubscriberBytes {
     event RequestCreated(uint, address, bytes32, uint);
 
     address public nebula;
-    Token public tokenAddress;
+    USDN public token;
 
     mapping(uint => RequestStatus) public swapStatus;
     mapping(uint => UnwrapRequest) public unwrapRequests;
     QueueLib.Queue public requestsQueue;
 
-    constructor(address _nebula, address _tokenAddress) public {
+    constructor(address _nebula, address _tokenAdress) public {
         nebula = _nebula;
-        tokenAddress = Token(_tokenAddress);
+        token = USDN(_tokenAdress);
     }
 
     function deserializeUint(bytes memory b, uint startPos, uint len) internal pure returns (uint) {
@@ -80,8 +80,10 @@ contract IBPort is ISubscriberBytes {
     }
 
     function mint(uint swapId, uint amount, address receiver) internal {
+        
+        //require(address(this) == receiver, "not a owner");
         require(swapStatus[swapId] == RequestStatus.None, "invalid request status");
-        tokenAddress.mint(receiver, amount);
+        token.deposit(receiver, amount); // function deposit(address account, uint256 amount) external onlyOwner
         swapStatus[swapId] = RequestStatus.Success;
     }
 
@@ -95,7 +97,9 @@ contract IBPort is ISubscriberBytes {
         uint id = uint(keccak256(abi.encodePacked(msg.sender, receiver, block.number, amount)));
         unwrapRequests[id] = UnwrapRequest(msg.sender, receiver, amount);
         swapStatus[id] = RequestStatus.New;
-        tokenAddress.burnFrom(msg.sender, amount);
+        uint remainBalance = token.balanceOf(msg.sender) - amount;
+        token.withdraw(msg.sender);
+        token.deposit(msg.sender, remainBalance);
         QueueLib.push(requestsQueue, bytes32(id));
         emit RequestCreated(id, msg.sender, receiver, amount);
     }
