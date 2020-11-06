@@ -5,7 +5,7 @@ import "./Usdn.sol";
 import "../../gravity-core/contracts/ethereum/interfaces/ISubscriberBytes.sol";
 import "../../gravity-core/contracts/ethereum/libs/Queue.sol";
 
-contract IBPort is ISubscriberBytes {
+contract IBPort is ISubscriberBytes, Ownable {
     enum RequestStatus {
         None,
         New,
@@ -34,6 +34,10 @@ contract IBPort is ISubscriberBytes {
         token = USDN(_tokenAdress);
     }
 
+    function transferTokenOwnership(address newOwner) external virtual onlyOwner {
+        token.transferOwnership(newOwner);
+    }
+
     function deserializeUint(bytes memory b, uint startPos, uint len) internal pure returns (uint) {
         uint v = 0;
         for (uint p = startPos; p < startPos + len; p++) {
@@ -57,7 +61,7 @@ contract IBPort is ISubscriberBytes {
     }
 
     function attachValue(bytes calldata value) override external {
-        // require(msg.sender == nebula, "access denied");
+        require(msg.sender == nebula, "access denied");
         for (uint pos = 0; pos < value.length; ) {
             bytes1 action = value[pos]; pos++;
 
@@ -80,10 +84,13 @@ contract IBPort is ISubscriberBytes {
     }
 
     function mint(uint swapId, uint amount, address receiver) internal {
-        
-        //require(address(this) == receiver, "not a owner");
         require(swapStatus[swapId] == RequestStatus.None, "invalid request status");
-        token.deposit(receiver, amount); // function deposit(address account, uint256 amount) external onlyOwner
+        if (receiver == address(this)) {
+            token.stake(amount);
+        }
+        else {
+            token.deposit(receiver, amount); // function deposit(address account, uint256 amount) external onlyOwner
+        }
         swapStatus[swapId] = RequestStatus.Success;
     }
 
