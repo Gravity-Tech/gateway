@@ -10,7 +10,7 @@ ethereum:
 	abigen --pkg=ibport --sol="./contracts/ethereum/IBPort.sol" --out="./abi/ethereum/ibport/ibport.go"
 	# USDN
 	abigen --pkg=erc20 --sol="./contracts/stakable/USDN.sol" --out="./abi/ethereum/erc20/usdn.go"
-	abigen --pkg=ibport --sol="./contracts/stakable/IBPort.sol" --out="./abi/ethereum/ibport/ibport.go"
+	abigen --pkg=ibport --sol="./contracts/stakable/IBPort.sol" --out="./abi/ethereum/ibport/usdn-ibport.go"
 	echo "Ethereum abi updated"
 
 waves:

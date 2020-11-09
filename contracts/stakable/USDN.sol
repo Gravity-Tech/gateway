@@ -36,7 +36,7 @@ abstract contract Ownable {
   address private _owner;
   address private _admin;
 
-  constructor () {
+  constructor () internal {
     _owner = msg.sender;
     _admin = msg.sender;
   }
@@ -79,7 +79,7 @@ abstract contract StandartToken is Staking, ERC20, Ownable, Deprecateble {
   mapping(address => uint256) private _rewardIndexForAccount;
   mapping(address => mapping(address => uint256)) private _allowances;
 
-  constructor () {
+  constructor () internal {
     _percents.push(PERCENT_FACTOR);
   }
 
