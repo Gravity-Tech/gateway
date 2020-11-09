@@ -72,7 +72,7 @@ func getRqReceiver(id: String) = getStringByKey(getRqReceiverKey(id))
 #-------------------Callable---------------------------
 
 @Callable(i)
-func attachData(v: ByteVector) = {
+func attachData(v: ByteVector, vPulseId: Int) = {
     let action = toInt(v.take(8))
     let rqId = toBase58String(v.drop(8).take(32))
     if (i.caller != nebulaAddress)
@@ -82,7 +82,7 @@ func attachData(v: ByteVector) = {
         if (getRqStatus(rqId) != NONE)
             then throw("rq is exist")
         else {
-            let recipient = v.drop(48)
+            let recipient = v.drop(48).take(26)
             ScriptResult(
                 WriteSet(
                     [ 

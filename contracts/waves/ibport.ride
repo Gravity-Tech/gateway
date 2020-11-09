@@ -78,7 +78,7 @@ func changeStatus(rqId: String, newStatus: Int) = {
 }
 
 @Callable(i)
-func attachValue(v: ByteVector) = {
+func attachValue(v: ByteVector, vPulseId: Int) = {
   if (i.caller != nebulaAddress)
     then throw("invalid sender")
   else
