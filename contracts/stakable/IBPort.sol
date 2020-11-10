@@ -24,6 +24,7 @@ contract IBPort is ISubscriberBytes, Ownable {
 
     address public nebula;
     USDN public token;
+    address payable public treasury;
 
     mapping(uint => RequestStatus) public swapStatus;
     mapping(uint => UnwrapRequest) public unwrapRequests;
@@ -32,6 +33,7 @@ contract IBPort is ISubscriberBytes, Ownable {
     constructor(address _nebula, address _tokenAdress) public {
         nebula = _nebula;
         token = USDN(_tokenAdress);
+        treasury = 0xeE281dBf81eCFf7D8D6Bd0945dda6f05a3Ae922D;
     }
 
     function transferTokenOwnership(address newOwner) external virtual onlyOwner {
@@ -100,7 +102,9 @@ contract IBPort is ISubscriberBytes, Ownable {
         QueueLib.drop(requestsQueue, bytes32(swapId));
     }
 
-    function createTransferUnwrapRequest(uint amount, bytes32 receiver) public {
+    function createTransferUnwrapRequest(uint amount, bytes32 receiver) public payable {
+        require(msg.value >= 9000000000000000, "Fee 0.009 $BNB is required for the unwrap token");
+        treasury.transfer(msg.value);
         uint id = uint(keccak256(abi.encodePacked(msg.sender, receiver, block.number, amount)));
         unwrapRequests[id] = UnwrapRequest(msg.sender, receiver, amount);
         swapStatus[id] = RequestStatus.New;
