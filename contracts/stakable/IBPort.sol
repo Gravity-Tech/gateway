@@ -1,7 +1,7 @@
 pragma solidity >=0.6.0;
 
 
-import "./Usdn.sol";
+import "./USDN.sol";
 import "../../gravity-core/contracts/ethereum/interfaces/ISubscriberBytes.sol";
 import "../../gravity-core/contracts/ethereum/libs/Queue.sol";
 

@@ -57,7 +57,7 @@ contract IBPort is ISubscriberBytes {
     }
 
     function attachValue(bytes calldata value) override external {
-        // require(msg.sender == nebula, "access denied");
+        require(msg.sender == nebula, "access denied");
         for (uint pos = 0; pos < value.length; ) {
             bytes1 action = value[pos]; pos++;
 
