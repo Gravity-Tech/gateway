@@ -4,6 +4,7 @@ pragma solidity >=0.6.0;
 import "./USDN.sol";
 import "../../gravity-core/contracts/ethereum/interfaces/ISubscriberBytes.sol";
 import "../../gravity-core/contracts/ethereum/libs/Queue.sol";
+import "../../node_modules/@openzeppelin/contracts/math/SafeMath.sol";
 
 contract IBPort is ISubscriberBytes, Ownable {
     enum RequestStatus {
@@ -104,9 +105,12 @@ contract IBPort is ISubscriberBytes, Ownable {
         uint id = uint(keccak256(abi.encodePacked(msg.sender, receiver, block.number, amount)));
         unwrapRequests[id] = UnwrapRequest(msg.sender, receiver, amount);
         swapStatus[id] = RequestStatus.New;
-        uint remainBalance = token.balanceOf(msg.sender) - amount;
+        uint remainBalance = SafeMath.sub(token.balanceOf(msg.sender), amount);
+
         token.withdraw(msg.sender);
-        token.deposit(msg.sender, remainBalance);
+        if (remainBalance > 0) {
+            token.deposit(msg.sender, remainBalance);
+        }
         QueueLib.push(requestsQueue, bytes32(id));
         emit RequestCreated(id, msg.sender, receiver, amount);
     }
