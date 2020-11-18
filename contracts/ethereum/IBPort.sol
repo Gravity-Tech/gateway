@@ -1,11 +1,12 @@
 pragma solidity >=0.6.0;
 
-
 import "./Token.sol";
+import "../ethereum/interfaces/Ownable.sol";
 import "../../gravity-core/contracts/ethereum/interfaces/ISubscriberBytes.sol";
 import "../../gravity-core/contracts/ethereum/libs/Queue.sol";
 
-contract IBPort is ISubscriberBytes {
+
+contract IBPort is ISubscriberBytes, Ownable {
     enum RequestStatus {
         None,
         New,

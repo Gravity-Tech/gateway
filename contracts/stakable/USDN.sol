@@ -1,5 +1,7 @@
 pragma solidity <=0.7;
 
+import "../ethereum/interfaces/Ownable.sol";
+
 interface Staking {
   function deposit(address account, uint256 amount) external returns (bool);
 
@@ -30,26 +32,6 @@ interface ERC20 {
 
   event Transfer(address indexed from, address indexed to, uint256 value);
   event Approval(address indexed owner, address indexed spender, uint256 value);
-}
-
-abstract contract Ownable {
-  address private _owner;
-  address private _admin;
-
-  constructor () internal {
-    _owner = msg.sender;
-    _admin = msg.sender;
-  }
-
-  modifier onlyOwner() {
-    require(_owner == msg.sender || _admin == msg.sender, "Ownable: caller is not the owner or admin");
-    _;
-  }
-
-  function transferOwnership(address newOwner) external virtual onlyOwner {
-    require(newOwner != address(0), "Ownable: new owner is the zero address");
-    _owner = newOwner;
-  }
 }
 
 abstract contract Deprecateble is Ownable {
