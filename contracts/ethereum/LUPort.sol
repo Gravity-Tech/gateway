@@ -3,8 +3,10 @@ pragma solidity >=0.6.0;
 import "./Token.sol";
 import "../../gravity-core/contracts/ethereum/interfaces/ISubscriberBytes.sol";
 import "../../gravity-core/contracts/ethereum/libs/Queue.sol";
+import "../ethereum/interfaces/Ownable.sol";
 
-contract LUPort is ISubscriberBytes {
+
+contract LUPort is ISubscriberBytes, Ownable {
     address public nebula;
     Token public tokenAddress;
 
