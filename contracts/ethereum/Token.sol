@@ -8,7 +8,7 @@ contract Token is ERC20PresetMinterPauser, Ownable {
         
     }
 
-    function transferOwnership(address owner) external {
+    function transferOwnership(address owner) external override {
         require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "the caller is not an admin");
 
         grantRole(DEFAULT_ADMIN_ROLE, owner);
