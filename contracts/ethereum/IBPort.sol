@@ -104,8 +104,17 @@ contract IBPort is ISubscriberBytes, Ownable {
     function nextRq(uint rqId) public view returns (uint) {
         return uint(requestsQueue.nextElement[bytes32(rqId)]);
     }
-     function prevRq(uint rqId) public view returns (uint) {
+    
+    function prevRq(uint rqId) public view returns (uint) {
         return uint(requestsQueue.prevElement[bytes32(rqId)]);
+    }
+
+    function transferOwnership(address owner) external override {
+        require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "the caller is not an admin");
+
+        grantRole(DEFAULT_ADMIN_ROLE, owner);
+        grantRole(MINTER_ROLE, owner);
+        grantRole(PAUSER_ROLE, owner);
     }
 }
 
