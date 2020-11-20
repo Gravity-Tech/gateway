@@ -8,9 +8,12 @@ contract Token is ERC20PresetMinterPauser, Ownable {
         
     }
 
-    function addMinter(address minter) external {
-        require(hasRole(MINTER_ROLE, _msgSender()), "ERC20PresetMinterPauser: must have minter role to add minter");
-        _setupRole(MINTER_ROLE, minter);
+    function transferOwnership(address owner) external {
+        require(hasRole(MINTER_ROLE, msg.sender), "the caller is not a minter");
+        require(hasRole(PAUSER_ROLE, msg.sender), "the caller is not a pauser");
+
+        grantRole(MINTER_ROLE, owner);
+        grantRole(PAUSER_ROLE, owner);
     }
 }
 
