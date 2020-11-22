@@ -1,12 +1,13 @@
 pragma solidity >=0.6.0;
 
 import "./Token.sol";
-import "../ethereum/interfaces/Ownable.sol";
+import "../../node_modules/@openzeppelin/contracts/access/Ownable.sol";
+import "../../node_modules/@openzeppelin/contracts/access/AccessControl.sol";
 import "../../gravity-core/contracts/ethereum/interfaces/ISubscriberBytes.sol";
 import "../../gravity-core/contracts/ethereum/libs/Queue.sol";
 
 
-contract IBPort is ISubscriberBytes, Ownable {
+contract IBPort is ISubscriberBytes, Ownable, AccessControl {
     enum RequestStatus {
         None,
         New,
@@ -109,12 +110,10 @@ contract IBPort is ISubscriberBytes, Ownable {
         return uint(requestsQueue.prevElement[bytes32(rqId)]);
     }
 
-    function transferOwnership(address owner) external override {
+    function transferContractOwnership(address owner) external {
         require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "the caller is not an admin");
 
         grantRole(DEFAULT_ADMIN_ROLE, owner);
-        grantRole(MINTER_ROLE, owner);
-        grantRole(PAUSER_ROLE, owner);
     }
 }
 
