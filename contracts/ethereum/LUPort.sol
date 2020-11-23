@@ -3,7 +3,7 @@ pragma solidity >=0.6.0;
 import "./Token.sol";
 import "../../gravity-core/contracts/ethereum/interfaces/ISubscriberBytes.sol";
 import "../../gravity-core/contracts/ethereum/libs/Queue.sol";
-import "../ethereum/interfaces/Ownable.sol";
+import "../../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 
 
 contract LUPort is ISubscriberBytes, Ownable {
