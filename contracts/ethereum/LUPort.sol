@@ -7,9 +7,6 @@ import "../../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 
 
 contract LUPort is ISubscriberBytes, Ownable {
-    address public nebula;
-    Token public tokenAddress;
-
     event NewRequest (uint swapId, uint amount, bytes32 receiver);
 
     enum RequestStatus {
@@ -27,6 +24,9 @@ contract LUPort is ISubscriberBytes, Ownable {
 
     uint public lastReqId = 1;
 
+    address public nebula;
+    Token public tokenAddress;
+ 
     mapping(uint => Request) public requests;
     QueueLib.Queue public requestsQueue;
 
@@ -120,5 +120,17 @@ contract LUPort is ISubscriberBytes, Ownable {
         }
 
         return (id, homeAddress, foreignAddress, amount, status);
+    }
+
+    function nextRq(uint rqId) public view returns (uint) {
+        return uint(requestsQueue.nextElement[bytes32(rqId)]);
+    }
+    
+    function prevRq(uint rqId) public view returns (uint) {
+        return uint(requestsQueue.prevElement[bytes32(rqId)]);
+    }
+
+    function transferTokenOwnership(address newOwner) external virtual onlyOwner {
+        tokenAddress.transferOwnership(newOwner);
     }
 }
