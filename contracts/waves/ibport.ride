@@ -1,12 +1,15 @@
-
 {-# STDLIB_VERSION 4 #-}
 {-# CONTENT_TYPE DAPP #-}
 {-# SCRIPT_TYPE ACCOUNT #-}
 
+
+#----Constants----
+let NONE = 0
+
 func getIntegerByKey(key: String) = {
     match (getInteger(this, key)) {
         case v:Int => v
-        case _ => 0
+        case _ => NONE
       } 
 }
 func getBytesByKey(key: String) = {
@@ -42,6 +45,7 @@ func getRqStatus(id: String) = getIntegerByKey(getRqStatusKey(id))
 func getNextRq(id: String) = getStringByKey(getNextRqKey(id))
 func getPrevRq(id: String) = getStringByKey(getPrevRqKey(id))
 
+
 #----Statuses-----
 let NEW = 1
 let COMPLETED = 2
@@ -55,12 +59,28 @@ let ISSUETYPE = 1
 let BURNTYPE = 2
 
 func mint(rqId: String, amount: Int, receiver: Address) = {
-  if isDefined(getRqStatus(rqId)) then throw("invalid status key")
+  # mint always overrides request "request type" to NEW
+  # changeStatus(confirmation) overrides "request type" to COMPLETED
+  if (getRqStatus(rqId) == NONE)
+  then
+    [
+      StringEntry(FirstRqKey, if (firstRq == "") then rqId else firstRq),
+      StringEntry(LastRqKey, rqId),
+
+      StringEntry(getNextRqKey(lastRq), rqId),
+      StringEntry(getPrevRqKey(rqId), lastRq),
+
+      IntegerEntry(getRqAmountKey(rqId), amount),
+      IntegerEntry(getRqStatusKey(rqId), NEW),
+      IntegerEntry(getRqTypeKey(rqId), ISSUETYPE),
+      Reissue(assetId, amount, true),
+      ScriptTransfer(receiver, amount, assetId)
+    ]
   else
     [
       Reissue(assetId, amount, true),
-      IntegerEntry(getRqStatusKey(rqId), COMPLETED),
-      IntegerEntry(getRqTypeKey(rqId), ISSUETYPE)
+      IntegerEntry(getRqStatusKey(rqId), NEW)
+      # IntegerEntry(getRqTypeKey(rqId), ISSUETYPE)
     ]
 }
 
@@ -69,7 +89,6 @@ func changeStatus(rqId: String, newStatus: Int) = {
   let prevRq = getPrevRq(rqId)
   [
     IntegerEntry(getRqStatusKey(rqId), newStatus),
-
     StringEntry(FirstRqKey, if (firstRq == rqId) then getNextRq(rqId) else firstRq),
     StringEntry(LastRqKey, if (lastRq == rqId) then getPrevRq(rqId) else lastRq),
     StringEntry(getNextRqKey(prevRq), nextRq),
@@ -78,7 +97,7 @@ func changeStatus(rqId: String, newStatus: Int) = {
 }
 
 @Callable(i)
-func attachValue(v: ByteVector, vPulseId: Int) = {
+func attachData(v: ByteVector, vPulseId: Int) = {
   if (i.caller != nebulaAddress)
     then throw("invalid sender")
   else
@@ -90,6 +109,8 @@ func attachValue(v: ByteVector, vPulseId: Int) = {
       let receiver = addressFromStringValue(toBase58String(v.drop(8+32+8)))
       mint(rqId, amount, receiver)
     else if action == CHANGESTATUS then
+      # instead of amount we should encode
+      # NEW(1)/COMPLETED(2) as []byte 
       let newStatus = toInt(v.drop(8+32))
       changeStatus(rqId, newStatus)
     else throw("invalid action")
