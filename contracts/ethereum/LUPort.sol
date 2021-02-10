@@ -22,8 +22,6 @@ contract LUPort is ISubscriberBytes, Ownable {
         RequestStatus status;
     }
 
-    uint public lastReqId = 1;
-
     address public nebula;
     Token public tokenAddress;
  
@@ -90,10 +88,10 @@ contract LUPort is ISubscriberBytes, Ownable {
 
     function createTransferUnwrapRequest(uint amount, bytes32 receiver) public {
         require(tokenAddress.transferFrom(msg.sender, address(this), amount), "can't transfer from");
-        requests[lastReqId] = Request(msg.sender, amount, receiver, RequestStatus.New);
-        QueueLib.push(requestsQueue, bytes32(lastReqId));
-        emit NewRequest(lastReqId, amount, receiver);
-        lastReqId++;
+        uint id = uint(keccak256(abi.encodePacked(msg.sender, receiver, block.number, amount)));
+        requests[id] = Request(msg.sender, amount, receiver, RequestStatus.New);
+        QueueLib.push(requestsQueue, bytes32(id));
+        emit NewRequest(id, amount, receiver);
     }
 
     function getRequests() public view returns (uint[] memory, address[] memory, bytes32[] memory, uint[] memory, RequestStatus[] memory) {
