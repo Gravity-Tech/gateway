@@ -71,15 +71,17 @@ func mint(rqId: String, amount: Int, receiver: Address) = {
       StringEntry(getPrevRqKey(rqId), lastRq),
 
       IntegerEntry(getRqAmountKey(rqId), amount),
-      IntegerEntry(getRqStatusKey(rqId), NEW),
+      IntegerEntry(getRqStatusKey(rqId), COMPLETED),
       IntegerEntry(getRqTypeKey(rqId), ISSUETYPE),
       Reissue(assetId, amount, true),
       ScriptTransfer(receiver, amount, assetId)
     ]
   else
     [
+      IntegerEntry(getRqAmountKey(rqId), amount),
+      IntegerEntry(getRqStatusKey(rqId), COMPLETED),
       Reissue(assetId, amount, true),
-      IntegerEntry(getRqStatusKey(rqId), NEW)
+      ScriptTransfer(receiver, amount, assetId)
       # IntegerEntry(getRqTypeKey(rqId), ISSUETYPE)
     ]
 }
