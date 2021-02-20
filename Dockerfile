@@ -13,4 +13,4 @@ RUN chmod +x solc
 RUN cp solc /bin/solc
 RUN echo "export PATH=/bin/solc:${PATH}" >> /root/.bashrc
 
-ENTRYPOINT cd workdir/ && make waves && make ethereum
+ENTRYPOINT cd workdir/

@@ -1,14 +1,14 @@
 kind: pipeline
 type: docker
-name: gravity-data-extractor
+name: gateway-tests
 
 trigger:
   branch:
-    - master
-    - price-version
+    - main
+    - add-drone
 
 pipeline:
-  publish-data-extractor:
+  publish-image:
     image: plugins/docker
     dockerfile: ./Dockerfile
     context: .
