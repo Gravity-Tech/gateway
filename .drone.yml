@@ -1,15 +1,28 @@
+---
 kind: pipeline
-type: exec
-name: compilation-ci
+type: docker
+name: gravity-gateway-tests
 
-platform:
-  os: linux
-  arch: amd64
+trigger:
+  branch:
+    - main
+    - add-drone
 
 steps:
-- name: compile waves
+- name: publish-image
+  image: plugins/docker
+  dockerfile: ./Dockerfile
+  context: .
+  repo: gravityhuborg/gateway-tests
+  tags: "${DRONE_BRANCH}"
+  secrets: [docker_username,docker_password]
+
+- name: test-waves
+  image: gravityhuborg/gateway-tests:$DRONE_BRANCH
   commands:
   - make waves
-- name: compile eth
+
+- name: test-eth
+  image: gravityhuborg/gateway-tests:$DRONE_BRANCH
   commands:
   - make ethereum
