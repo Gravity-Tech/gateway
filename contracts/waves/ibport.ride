@@ -87,9 +87,9 @@ func mint(rqId: String, amount: Int, receiver: Address) = {
     ]
 }
 
-func changeStatus(rqId: String, newStatus: Int) = {
+func confirmRequest(rqId: String) = {
   [
-    IntegerEntry(getRqStatusKey(rqId), newStatus)
+    IntegerEntry(getRqStatusKey(rqId), COMPLETED)
   ]
 }
 
@@ -106,10 +106,11 @@ func attachData(v: ByteVector, vPulseId: Int) = {
       let receiver = addressFromStringValue(toBase58String(v.drop(8+32+8)))
       mint(rqId, amount, receiver)
     else if action == CHANGESTATUS then
-      # instead of amount we should encode
-      # NEW(1)/COMPLETED(2) as []byte 
       let newStatus = toInt(v.drop(8+32))
-      changeStatus(rqId, newStatus)
+
+      if newStatus == COMPLETED then
+        confirmRequest(rqId)
+      else throw("input status is invalid")
     else throw("invalid action")
 }
 
