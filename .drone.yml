@@ -1,0 +1,15 @@
+kind: pipeline
+type: exec
+name: compilation-ci
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: compile waves
+  commands:
+  - make waves
+- name: compile eth
+  commands:
+  - make ethereum
