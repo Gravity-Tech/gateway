@@ -1,28 +1,27 @@
----
 kind: pipeline
 type: docker
-name: gravity-gateway-tests
+name: gravity-data-extractor
 
 trigger:
   branch:
-    - main
-    - add-drone
+    - master
+    - price-version
 
-steps:
-- name: publish-image
-  image: plugins/docker
-  dockerfile: ./Dockerfile
-  context: .
-  repo: gravityhuborg/gateway-tests
-  tags: "${DRONE_BRANCH}"
-  secrets: [docker_username,docker_password]
+pipeline:
+  publish-data-extractor:
+    image: plugins/docker
+    dockerfile: ./Dockerfile
+    context: .
+    repo: gravityhuborg/gateway-tests
+    tags: [latest,"${DRONE_BRANCH}"]
+    secrets: [docker_username,docker_password]
 
-- name: test-waves
-  image: gravityhuborg/gateway-tests:$DRONE_BRANCH
-  commands:
-  - make waves
+  test-waves:
+    image: gravityhuborg/gateway-tests:$DRONE_BRANCH
+    commands:
+    - make waves
 
-- name: test-eth
-  image: gravityhuborg/gateway-tests:$DRONE_BRANCH
-  commands:
-  - make ethereum
+  test-eth:
+    image: gravityhuborg/gateway-tests:$DRONE_BRANCH
+    commands:
+    - make ethereum
