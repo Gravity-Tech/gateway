@@ -13,15 +13,15 @@ pipeline:
     dockerfile: ./Dockerfile
     context: .
     repo: gravityhuborg/gateway-tests
-    tags: [latest,"${DRONE_BRANCH}"]
+    tags: [latest]
     secrets: [docker_username,docker_password]
 
   test-waves:
-    image: gravityhuborg/gateway-tests:$DRONE_BRANCH
+    image: gravityhuborg/gateway-tests:latest
     commands:
     - make waves
 
   test-eth:
-    image: gravityhuborg/gateway-tests:$DRONE_BRANCH
+    image: gravityhuborg/gateway-tests:latest
     commands:
     - make ethereum
