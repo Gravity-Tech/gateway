@@ -5,6 +5,7 @@ WORKDIR workdir
 COPY . workdir/
 
 RUN apk add --update nodejs nodejs-npm make wget
+RUN npm i
 RUN npm i -g @waves/surfboard@beta solc@0.6.1
 
 RUN wget https://github.com/ethereum/solidity/releases/download/v0.6.11/solc-static-linux
