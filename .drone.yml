@@ -1,0 +1,27 @@
+kind: pipeline
+type: docker
+name: gateway-tests
+
+trigger:
+  branch:
+    - main
+    - add-drone
+
+pipeline:
+  publish-image:
+    image: plugins/docker
+    dockerfile: ./Dockerfile
+    context: .
+    repo: gravityhuborg/gateway-tests
+    tags: [latest]
+    secrets: [docker_username,docker_password]
+
+  test-waves:
+    image: gravityhuborg/gateway-tests:latest
+    commands:
+    - make waves
+
+  test-eth:
+    image: gravityhuborg/gateway-tests:latest
+    commands:
+    - make ethereum
