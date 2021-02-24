@@ -3,7 +3,5 @@
 
 
 describe('gateway tests', () => {
-	
-
-
+  
 })
