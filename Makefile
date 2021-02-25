@@ -16,7 +16,6 @@ ethereum:
 waves:
 	@type "npm" 2> /dev/null || echo 'Please install node.js and npm'
 	@type "surfboard" 2> /dev/null || echo 'Please install sorfboard'
-	npm update surfboard -g
 	surfboard compile ./contracts/waves/luport.ride > ./abi/waves/luport.abi
 	surfboard compile ./contracts/waves/ibport.ride > ./abi/waves/ibport.abi
 	echo "Waves abi updated"
