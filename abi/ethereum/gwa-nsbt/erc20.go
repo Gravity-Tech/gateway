@@ -1023,6 +1023,1167 @@ func (_ERC20 *ERC20Filterer) ParseTransfer(log types.Log) (*ERC20Transfer, error
 	return event, nil
 }
 
+// NSBTABI is the input ABI used to generate the binding from.
+const NSBTABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Deprecate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Reward\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"subtractedValue\",\"type\":\"uint256\"}],\"name\":\"decreaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"deposit\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"deprecate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"addedValue\",\"type\":\"uint256\"}],\"name\":\"increaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"reward\",\"type\":\"uint256\"}],\"name\":\"stake\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"withdraw\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
+
+// NSBTFuncSigs maps the 4-byte function signature to its string representation.
+var NSBTFuncSigs = map[string]string{
+	"dd62ed3e": "allowance(address,address)",
+	"095ea7b3": "approve(address,uint256)",
+	"70a08231": "balanceOf(address)",
+	"313ce567": "decimals()",
+	"a457c2d7": "decreaseAllowance(address,uint256)",
+	"47e7ef24": "deposit(address,uint256)",
+	"0fcc0c28": "deprecate()",
+	"39509351": "increaseAllowance(address,uint256)",
+	"06fdde03": "name()",
+	"a694fc3a": "stake(uint256)",
+	"95d89b41": "symbol()",
+	"18160ddd": "totalSupply()",
+	"a9059cbb": "transfer(address,uint256)",
+	"23b872dd": "transferFrom(address,address,uint256)",
+	"f2fde38b": "transferOwnership(address)",
+	"51cff8d9": "withdraw(address)",
+}
+
+// NSBTBin is the compiled bytecode used for deploying new contracts.
+var NSBTBin = "0x608060405234801561001057600080fd5b50600080546001600160a01b03199081163390811783556001805490921617815560028054918201815590915264e8d4a510007f405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ace90910155611a3a806100776000396000f3fe608060405234801561001057600080fd5b50600436106101005760003560e01c806351cff8d911610097578063a694fc3a11610066578063a694fc3a14610312578063a9059cbb1461032f578063dd62ed3e1461035b578063f2fde38b1461038957610100565b806351cff8d91461029257806370a08231146102b857806395d89b41146102de578063a457c2d7146102e657610100565b806323b872dd116100d357806323b872dd146101e6578063313ce5671461021c578063395093511461023a57806347e7ef241461026657610100565b806306fdde0314610105578063095ea7b3146101825780630fcc0c28146101c257806318160ddd146101cc575b600080fd5b61010d6103af565b6040805160208082528351818301528351919283929083019185019080838360005b8381101561014757818101518382015260200161012f565b50505050905090810190601f1680156101745780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b6101ae6004803603604081101561019857600080fd5b506001600160a01b0381351690602001356103e6565b604080519115158252519081900360200190f35b6101ca6103fc565b005b6101d461049a565b60408051918252519081900360200190f35b6101ae600480360360608110156101fc57600080fd5b506001600160a01b038135811691602081013590911690604001356104eb565b610224610573565b6040805160ff9092168252519081900360200190f35b6101ae6004803603604081101561025057600080fd5b506001600160a01b038135169060200135610578565b6101ae6004803603604081101561027c57600080fd5b506001600160a01b0381351690602001356105fe565b6101ae600480360360208110156102a857600080fd5b50356001600160a01b0316610931565b6101d4600480360360208110156102ce57600080fd5b50356001600160a01b0316610bec565b61010d610df7565b6101ae600480360360408110156102fc57600080fd5b506001600160a01b038135169060200135610e18565b6101ae6004803603602081101561032857600080fd5b5035610e88565b6101ae6004803603604081101561034557600080fd5b506001600160a01b03813516906020013561115f565b6101d46004803603604081101561037157600080fd5b506001600160a01b038135811691602001351661116c565b6101ca6004803603602081101561039f57600080fd5b50356001600160a01b0316611197565b60408051808201909152601881527f57726170706564204175746f7374616b696e67204e5342540000000000000000602082015290565b60006103f333848461125c565b50600192915050565b6000546001600160a01b031633148061041f57506001546001600160a01b031633145b61045a5760405162461bcd60e51b81526004018080602001828103825260298152602001806118946029913960400191505060405180910390fd5b6001805460ff60a01b1916600160a01b17905560405133907fcc358699805e9a8b7f77b522628c7cb9abd07d9efb86b6fb616af1609036a99e90600090a2565b600354600454600091908082018211156104e55760405162461bcd60e51b815260040180806020018281038252602281526020018061190a6022913960400191505060405180910390fd5b01905090565b60006104f8848484611391565b6001600160a01b03841660009081526008602090815260408083203384529091529020548083111561055b5760405162461bcd60e51b81526004018080602001828103825260288152602001806118bd6028913960400191505060405180910390fd5b610568853385840361125c565b506001949350505050565b601290565b3360009081526008602090815260408083206001600160a01b03861684529091528120548281018111156105e7576040805162461bcd60e51b81526020600482015260116024820152706164646974696f6e206f766572666c6f7760781b604482015290519081900360640190fd5b6105f4338585840161125c565b5060019392505050565b600080546001600160a01b031633148061062257506001546001600160a01b031633145b61065d5760405162461bcd60e51b81526004018080602001828103825260298152602001806118946029913960400191505060405180910390fd5b600154600160a01b900460ff16156106a65760405162461bcd60e51b81526004018080602001828103825260248152602001806119e16024913960400191505060405180910390fd5b600082116106f2576040805162461bcd60e51b81526020600482015260146024820152730616d6f756e742073686f756c64206265203e20360641b604482015290519081900360640190fd5b6001600160a01b03831661074d576040805162461bcd60e51b815260206004820152601b60248201527f6465706f73697420746f20746865207a65726f20616464726573730000000000604482015290519081900360640190fd5b6004548281018111156107a7576040805162461bcd60e51b815260206004820152601d60248201527f6164646974696f6e206f766572666c6f7720666f72206465706f736974000000604482015290519081900360640190fd5b8083016004556001600160a01b03841660009081526006602052604090205480610812576107d485610bec565b6001600160a01b03861660009081526005602090815260408083209390935560025460078252838320600019909101905560069052208490556108f7565b6001600160a01b038516600090815260076020526040902054600254600019018114156108b257818583011015610890576040805162461bcd60e51b815260206004820152601d60248201527f6164646974696f6e206f766572666c6f7720666f72206465706f736974000000604482015290519081900360640190fd5b6001600160a01b038616600090815260066020526040902082860190556108f5565b6108bb86610bec565b6001600160a01b03871660009081526005602090815260408083209390935560025460078252838320600019909101905560069052208590555b505b6040805185815290516001600160a01b038716916000916000805160206119538339815191529181900360200190a3506001949350505050565b600080546001600160a01b031633148061095557506001546001600160a01b031633145b6109905760405162461bcd60e51b81526004018080602001828103825260298152602001806118946029913960400191505060405180910390fd5b600154600160a01b900460ff16156109d95760405162461bcd60e51b81526004018080602001828103825260248152602001806119e16024913960400191505060405180910390fd5b6001600160a01b03821660009081526006602090815260408083205460079092529091205460025460001901811415610b33576001600160a01b038416600090815260056020526040902054600354811115610a665760405162461bcd60e51b81526004018080602001828103825260258152602001806118e56025913960400191505060405180910390fd5b600380548290039055600454831115610ab05760405162461bcd60e51b815260040180806020018281038252602781526020018061192c6027913960400191505060405180910390fd5b8260045403600481905550808382011015610afc5760405162461bcd60e51b815260040180806020018281038252603081526020018061179d6030913960400191505060405180910390fd5b60408051828501815290516000916001600160a01b038816916000805160206119538339815191529181900360200190a350610bbb565b6000610b3e85610bec565b60035490915080821115610b835760405162461bcd60e51b81526004018080602001828103825260258152602001806118e56025913960400191505060405180910390fd5b8181036003556040805183815290516000916001600160a01b038916916000805160206119538339815191529181900360200190a350505b5050506001600160a01b0381166000908152600560209081526040808320839055600690915281205560015b919050565b6001600160a01b038116600090815260056020908152604080832054600690925282205481158015610c1c575080155b15610c2c57600092505050610be7565b6001600160a01b03841660009081526007602052604090205460025460001901811415610cb357828284011015610caa576040805162461bcd60e51b815260206004820152601d60248201527f6164646974696f6e206f766572666c6f7720666f722062616c616e6365000000604482015290519081900360640190fd5b50019050610be7565b81610d095760028054600091906000198101908110610cce57fe5b9060005260206000200154905060028281548110610ce857fe5b906000526020600020015484820281610cfd57fe5b04945050505050610be7565b600060028281548110610d1857fe5b600091825260209091200154600280546000198101908110610d3657fe5b9060005260206000200154850281610d4a57fe5b049050600060028360010181548110610d5f57fe5b600091825260209091200154600280546000198101908110610d7d57fe5b9060005260206000200154850281610d9157fe5b049050818282011015610deb576040805162461bcd60e51b815260206004820152601d60248201527f6164646974696f6e206f766572666c6f7720666f722062616c616e6365000000604482015290519081900360640190fd5b019350610be792505050565b60408051808201909152600781526619ddd85394d09560ca1b602082015290565b3360009081526008602090815260408083206001600160a01b038616845290915281205480831115610e7b5760405162461bcd60e51b81526004018080602001828103825260258152602001806119bc6025913960400191505060405180910390fd5b6105f4338585840361125c565b600080546001600160a01b0316331480610eac57506001546001600160a01b031633145b610ee75760405162461bcd60e51b81526004018080602001828103825260298152602001806118946029913960400191505060405180910390fd5b600154600160a01b900460ff1615610f305760405162461bcd60e51b81526004018080602001828103825260248152602001806119e16024913960400191505060405180910390fd5b60008211610f7c576040805162461bcd60e51b815260206004820152601460248201527307265776172642073686f756c64206265203e20360641b604482015290519081900360640190fd5b60035460045481610fc7576002805460018101825560009190915264e8d4a510007f405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ace909101556110cc565b60028054600091906000198101908110610fdd57fe5b9060005260206000200154905060008364e8d4a51000870281610ffc57fe5b0490508064e8d4a510008201101561105b576040805162461bcd60e51b815260206004820152601d60248201527f6164646974696f6e206f766572666c6f7720666f722070657263656e74000000604482015290519081900360640190fd5b64e8d4a51000818101906002908483028254600181018455600093845260209093209190049101558685018511156110c45760405162461bcd60e51b815260040180806020018281038252602b815260200180611869602b913960400191505060405180910390fd5b505050908301905b81818301101561110d5760405162461bcd60e51b815260040180806020018281038252602281526020018061190a6022913960400191505060405180910390fd5b8181016003556000600455600254604080519182526020820186905280517f45cad8c10023de80f4c0672ff6c283b671e11aa93c92b9380cdf060d2790da529281900390910190a15060019392505050565b60006103f3338484611391565b6001600160a01b03918216600090815260086020908152604080832093909416825291909152205490565b6000546001600160a01b03163314806111ba57506001546001600160a01b031633145b6111f55760405162461bcd60e51b81526004018080602001828103825260298152602001806118946029913960400191505060405180910390fd5b6001600160a01b03811661123a5760405162461bcd60e51b81526004018080602001828103825260268152602001806117cd6026913960400191505060405180910390fd5b600080546001600160a01b0319166001600160a01b0392909216919091179055565b600154600160a01b900460ff16156112a55760405162461bcd60e51b81526004018080602001828103825260248152602001806119e16024913960400191505060405180910390fd5b6001600160a01b0383166112ea5760405162461bcd60e51b81526004018080602001828103825260248152602001806119986024913960400191505060405180910390fd5b6001600160a01b03821661132f5760405162461bcd60e51b81526004018080602001828103825260228152602001806117f36022913960400191505060405180910390fd5b6001600160a01b03808416600081815260086020908152604080832094871680845294825291829020859055815185815291517f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b9259281900390910190a3505050565b600154600160a01b900460ff16156113da5760405162461bcd60e51b81526004018080602001828103825260248152602001806119e16024913960400191505060405180910390fd5b60008111611426576040805162461bcd60e51b81526020600482015260146024820152730616d6f756e742073686f756c64206265203e20360641b604482015290519081900360640190fd5b6001600160a01b03831661146b5760405162461bcd60e51b81526004018080602001828103825260258152602001806119736025913960400191505060405180910390fd5b6001600160a01b0382166114b05760405162461bcd60e51b815260040180806020018281038252602381526020018061177a6023913960400191505060405180910390fd5b6001600160a01b038316600090815260066020908152604080832054600790925282205490918215806114e95750600254600019018214155b1561157e5760006114f987610bec565b90508085111561153a5760405162461bcd60e51b81526004018080602001828103825260268152602001806118156026913960400191505060405180910390fd5b6001600160a01b0387166000908152600560209081526040808320938890039093556006815282822082905560025460079091529190206000199091019055611632565b8284116115a957506001600160a01b0385166000908152600660205260409020838303905582611632565b6001600160a01b0386166000908152600560205260409020548385038110156116035760405162461bcd60e51b81526004018080602001828103825260268152602001806118156026913960400191505060405180910390fd5b6001600160a01b0387166000908152600560209081526040808320878903909403909355600690529081205550815b6001600160a01b038516600090815260066020908152604080832054600790925290912054909350915082158061166f5750600254600019018214155b1561170857600061167f86610bec565b905080818387030110156116c45760405162461bcd60e51b815260040180806020018281038252602e81526020018061183b602e913960400191505060405180910390fd5b6001600160a01b0386166000908152600560209081526040808320858903949094019093556002546007825283832060001990910190556006905220819055611738565b6001600160a01b038516600090815260056020908152604080832080548589030190556006909152902083820190555b846001600160a01b0316866001600160a01b0316600080516020611953833981519152866040518082815260200191505060405180910390a350505050505056fe45524332303a207472616e7366657220746f20746865207a65726f20616464726573736164646974696f6e206f766572666c6f7720666f7220746f74616c2062616c616e6365202b206f6c644465706f7369744f776e61626c653a206e6577206f776e657220697320746865207a65726f206164647265737345524332303a20617070726f766520746f20746865207a65726f206164647265737345524332303a207472616e7366657220616d6f756e7420657863656564732062616c616e636545524332303a206164646974696f6e206f766572666c6f7720666f7220726563697069656e742062616c616e63656164646974696f6e206f766572666c6f7720666f7220746f74616c20737570706c79202b207265776172644f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572206f722061646d696e45524332303a207472616e7366657220616d6f756e74206578636565647320616c6c6f77616e63657375627472616374696f6e206f766572666c6f7720666f7220746f74616c20737570706c796164646974696f6e206f766572666c6f7720666f7220746f74616c20737570706c797375627472616374696f6e206f766572666c6f7720666f72206c6971756964206465706f736974ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef45524332303a207472616e736665722066726f6d20746865207a65726f206164647265737345524332303a20617070726f76652066726f6d20746865207a65726f206164647265737345524332303a2064656372656173656420616c6c6f77616e63652062656c6f77207a65726f446570726563617465626c653a20636f6e74726163742069732064657072656361746564a26469706673582212200d532fe27f577e0e56817ad9e8b3f8f4624e3fe9724cad4b56621d43098d519464736f6c634300060a0033"
+
+// DeployNSBT deploys a new Ethereum contract, binding an instance of NSBT to it.
+func DeployNSBT(auth *bind.TransactOpts, backend bind.ContractBackend) (common.Address, *types.Transaction, *NSBT, error) {
+	parsed, err := abi.JSON(strings.NewReader(NSBTABI))
+	if err != nil {
+		return common.Address{}, nil, nil, err
+	}
+
+	address, tx, contract, err := bind.DeployContract(auth, parsed, common.FromHex(NSBTBin), backend)
+	if err != nil {
+		return common.Address{}, nil, nil, err
+	}
+	return address, tx, &NSBT{NSBTCaller: NSBTCaller{contract: contract}, NSBTTransactor: NSBTTransactor{contract: contract}, NSBTFilterer: NSBTFilterer{contract: contract}}, nil
+}
+
+// NSBT is an auto generated Go binding around an Ethereum contract.
+type NSBT struct {
+	NSBTCaller     // Read-only binding to the contract
+	NSBTTransactor // Write-only binding to the contract
+	NSBTFilterer   // Log filterer for contract events
+}
+
+// NSBTCaller is an auto generated read-only Go binding around an Ethereum contract.
+type NSBTCaller struct {
+	contract *bind.BoundContract // Generic contract wrapper for the low level calls
+}
+
+// NSBTTransactor is an auto generated write-only Go binding around an Ethereum contract.
+type NSBTTransactor struct {
+	contract *bind.BoundContract // Generic contract wrapper for the low level calls
+}
+
+// NSBTFilterer is an auto generated log filtering Go binding around an Ethereum contract events.
+type NSBTFilterer struct {
+	contract *bind.BoundContract // Generic contract wrapper for the low level calls
+}
+
+// NSBTSession is an auto generated Go binding around an Ethereum contract,
+// with pre-set call and transact options.
+type NSBTSession struct {
+	Contract     *NSBT             // Generic contract binding to set the session for
+	CallOpts     bind.CallOpts     // Call options to use throughout this session
+	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
+}
+
+// NSBTCallerSession is an auto generated read-only Go binding around an Ethereum contract,
+// with pre-set call options.
+type NSBTCallerSession struct {
+	Contract *NSBTCaller   // Generic contract caller binding to set the session for
+	CallOpts bind.CallOpts // Call options to use throughout this session
+}
+
+// NSBTTransactorSession is an auto generated write-only Go binding around an Ethereum contract,
+// with pre-set transact options.
+type NSBTTransactorSession struct {
+	Contract     *NSBTTransactor   // Generic contract transactor binding to set the session for
+	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
+}
+
+// NSBTRaw is an auto generated low-level Go binding around an Ethereum contract.
+type NSBTRaw struct {
+	Contract *NSBT // Generic contract binding to access the raw methods on
+}
+
+// NSBTCallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
+type NSBTCallerRaw struct {
+	Contract *NSBTCaller // Generic read-only contract binding to access the raw methods on
+}
+
+// NSBTTransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
+type NSBTTransactorRaw struct {
+	Contract *NSBTTransactor // Generic write-only contract binding to access the raw methods on
+}
+
+// NewNSBT creates a new instance of NSBT, bound to a specific deployed contract.
+func NewNSBT(address common.Address, backend bind.ContractBackend) (*NSBT, error) {
+	contract, err := bindNSBT(address, backend, backend, backend)
+	if err != nil {
+		return nil, err
+	}
+	return &NSBT{NSBTCaller: NSBTCaller{contract: contract}, NSBTTransactor: NSBTTransactor{contract: contract}, NSBTFilterer: NSBTFilterer{contract: contract}}, nil
+}
+
+// NewNSBTCaller creates a new read-only instance of NSBT, bound to a specific deployed contract.
+func NewNSBTCaller(address common.Address, caller bind.ContractCaller) (*NSBTCaller, error) {
+	contract, err := bindNSBT(address, caller, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+	return &NSBTCaller{contract: contract}, nil
+}
+
+// NewNSBTTransactor creates a new write-only instance of NSBT, bound to a specific deployed contract.
+func NewNSBTTransactor(address common.Address, transactor bind.ContractTransactor) (*NSBTTransactor, error) {
+	contract, err := bindNSBT(address, nil, transactor, nil)
+	if err != nil {
+		return nil, err
+	}
+	return &NSBTTransactor{contract: contract}, nil
+}
+
+// NewNSBTFilterer creates a new log filterer instance of NSBT, bound to a specific deployed contract.
+func NewNSBTFilterer(address common.Address, filterer bind.ContractFilterer) (*NSBTFilterer, error) {
+	contract, err := bindNSBT(address, nil, nil, filterer)
+	if err != nil {
+		return nil, err
+	}
+	return &NSBTFilterer{contract: contract}, nil
+}
+
+// bindNSBT binds a generic wrapper to an already deployed contract.
+func bindNSBT(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor, filterer bind.ContractFilterer) (*bind.BoundContract, error) {
+	parsed, err := abi.JSON(strings.NewReader(NSBTABI))
+	if err != nil {
+		return nil, err
+	}
+	return bind.NewBoundContract(address, parsed, caller, transactor, filterer), nil
+}
+
+// Call invokes the (constant) contract method with params as input values and
+// sets the output to result. The result type might be a single field for simple
+// returns, a slice of interfaces for anonymous returns and a struct for named
+// returns.
+func (_NSBT *NSBTRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+	return _NSBT.Contract.NSBTCaller.contract.Call(opts, result, method, params...)
+}
+
+// Transfer initiates a plain transaction to move funds to the contract, calling
+// its default method if one is available.
+func (_NSBT *NSBTRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _NSBT.Contract.NSBTTransactor.contract.Transfer(opts)
+}
+
+// Transact invokes the (paid) contract method with params as input values.
+func (_NSBT *NSBTRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+	return _NSBT.Contract.NSBTTransactor.contract.Transact(opts, method, params...)
+}
+
+// Call invokes the (constant) contract method with params as input values and
+// sets the output to result. The result type might be a single field for simple
+// returns, a slice of interfaces for anonymous returns and a struct for named
+// returns.
+func (_NSBT *NSBTCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+	return _NSBT.Contract.contract.Call(opts, result, method, params...)
+}
+
+// Transfer initiates a plain transaction to move funds to the contract, calling
+// its default method if one is available.
+func (_NSBT *NSBTTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _NSBT.Contract.contract.Transfer(opts)
+}
+
+// Transact invokes the (paid) contract method with params as input values.
+func (_NSBT *NSBTTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+	return _NSBT.Contract.contract.Transact(opts, method, params...)
+}
+
+// Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
+//
+// Solidity: function allowance(address owner, address spender) view returns(uint256)
+func (_NSBT *NSBTCaller) Allowance(opts *bind.CallOpts, owner common.Address, spender common.Address) (*big.Int, error) {
+	var out []interface{}
+	err := _NSBT.contract.Call(opts, &out, "allowance", owner, spender)
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
+//
+// Solidity: function allowance(address owner, address spender) view returns(uint256)
+func (_NSBT *NSBTSession) Allowance(owner common.Address, spender common.Address) (*big.Int, error) {
+	return _NSBT.Contract.Allowance(&_NSBT.CallOpts, owner, spender)
+}
+
+// Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
+//
+// Solidity: function allowance(address owner, address spender) view returns(uint256)
+func (_NSBT *NSBTCallerSession) Allowance(owner common.Address, spender common.Address) (*big.Int, error) {
+	return _NSBT.Contract.Allowance(&_NSBT.CallOpts, owner, spender)
+}
+
+// BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
+//
+// Solidity: function balanceOf(address account) view returns(uint256)
+func (_NSBT *NSBTCaller) BalanceOf(opts *bind.CallOpts, account common.Address) (*big.Int, error) {
+	var out []interface{}
+	err := _NSBT.contract.Call(opts, &out, "balanceOf", account)
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
+//
+// Solidity: function balanceOf(address account) view returns(uint256)
+func (_NSBT *NSBTSession) BalanceOf(account common.Address) (*big.Int, error) {
+	return _NSBT.Contract.BalanceOf(&_NSBT.CallOpts, account)
+}
+
+// BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
+//
+// Solidity: function balanceOf(address account) view returns(uint256)
+func (_NSBT *NSBTCallerSession) BalanceOf(account common.Address) (*big.Int, error) {
+	return _NSBT.Contract.BalanceOf(&_NSBT.CallOpts, account)
+}
+
+// Decimals is a free data retrieval call binding the contract method 0x313ce567.
+//
+// Solidity: function decimals() pure returns(uint8)
+func (_NSBT *NSBTCaller) Decimals(opts *bind.CallOpts) (uint8, error) {
+	var out []interface{}
+	err := _NSBT.contract.Call(opts, &out, "decimals")
+
+	if err != nil {
+		return *new(uint8), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(uint8)).(*uint8)
+
+	return out0, err
+
+}
+
+// Decimals is a free data retrieval call binding the contract method 0x313ce567.
+//
+// Solidity: function decimals() pure returns(uint8)
+func (_NSBT *NSBTSession) Decimals() (uint8, error) {
+	return _NSBT.Contract.Decimals(&_NSBT.CallOpts)
+}
+
+// Decimals is a free data retrieval call binding the contract method 0x313ce567.
+//
+// Solidity: function decimals() pure returns(uint8)
+func (_NSBT *NSBTCallerSession) Decimals() (uint8, error) {
+	return _NSBT.Contract.Decimals(&_NSBT.CallOpts)
+}
+
+// Name is a free data retrieval call binding the contract method 0x06fdde03.
+//
+// Solidity: function name() pure returns(string)
+func (_NSBT *NSBTCaller) Name(opts *bind.CallOpts) (string, error) {
+	var out []interface{}
+	err := _NSBT.contract.Call(opts, &out, "name")
+
+	if err != nil {
+		return *new(string), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(string)).(*string)
+
+	return out0, err
+
+}
+
+// Name is a free data retrieval call binding the contract method 0x06fdde03.
+//
+// Solidity: function name() pure returns(string)
+func (_NSBT *NSBTSession) Name() (string, error) {
+	return _NSBT.Contract.Name(&_NSBT.CallOpts)
+}
+
+// Name is a free data retrieval call binding the contract method 0x06fdde03.
+//
+// Solidity: function name() pure returns(string)
+func (_NSBT *NSBTCallerSession) Name() (string, error) {
+	return _NSBT.Contract.Name(&_NSBT.CallOpts)
+}
+
+// Symbol is a free data retrieval call binding the contract method 0x95d89b41.
+//
+// Solidity: function symbol() pure returns(string)
+func (_NSBT *NSBTCaller) Symbol(opts *bind.CallOpts) (string, error) {
+	var out []interface{}
+	err := _NSBT.contract.Call(opts, &out, "symbol")
+
+	if err != nil {
+		return *new(string), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(string)).(*string)
+
+	return out0, err
+
+}
+
+// Symbol is a free data retrieval call binding the contract method 0x95d89b41.
+//
+// Solidity: function symbol() pure returns(string)
+func (_NSBT *NSBTSession) Symbol() (string, error) {
+	return _NSBT.Contract.Symbol(&_NSBT.CallOpts)
+}
+
+// Symbol is a free data retrieval call binding the contract method 0x95d89b41.
+//
+// Solidity: function symbol() pure returns(string)
+func (_NSBT *NSBTCallerSession) Symbol() (string, error) {
+	return _NSBT.Contract.Symbol(&_NSBT.CallOpts)
+}
+
+// TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
+//
+// Solidity: function totalSupply() view returns(uint256)
+func (_NSBT *NSBTCaller) TotalSupply(opts *bind.CallOpts) (*big.Int, error) {
+	var out []interface{}
+	err := _NSBT.contract.Call(opts, &out, "totalSupply")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
+//
+// Solidity: function totalSupply() view returns(uint256)
+func (_NSBT *NSBTSession) TotalSupply() (*big.Int, error) {
+	return _NSBT.Contract.TotalSupply(&_NSBT.CallOpts)
+}
+
+// TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
+//
+// Solidity: function totalSupply() view returns(uint256)
+func (_NSBT *NSBTCallerSession) TotalSupply() (*big.Int, error) {
+	return _NSBT.Contract.TotalSupply(&_NSBT.CallOpts)
+}
+
+// Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
+//
+// Solidity: function approve(address spender, uint256 amount) returns(bool)
+func (_NSBT *NSBTTransactor) Approve(opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _NSBT.contract.Transact(opts, "approve", spender, amount)
+}
+
+// Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
+//
+// Solidity: function approve(address spender, uint256 amount) returns(bool)
+func (_NSBT *NSBTSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _NSBT.Contract.Approve(&_NSBT.TransactOpts, spender, amount)
+}
+
+// Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
+//
+// Solidity: function approve(address spender, uint256 amount) returns(bool)
+func (_NSBT *NSBTTransactorSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _NSBT.Contract.Approve(&_NSBT.TransactOpts, spender, amount)
+}
+
+// DecreaseAllowance is a paid mutator transaction binding the contract method 0xa457c2d7.
+//
+// Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
+func (_NSBT *NSBTTransactor) DecreaseAllowance(opts *bind.TransactOpts, spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
+	return _NSBT.contract.Transact(opts, "decreaseAllowance", spender, subtractedValue)
+}
+
+// DecreaseAllowance is a paid mutator transaction binding the contract method 0xa457c2d7.
+//
+// Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
+func (_NSBT *NSBTSession) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
+	return _NSBT.Contract.DecreaseAllowance(&_NSBT.TransactOpts, spender, subtractedValue)
+}
+
+// DecreaseAllowance is a paid mutator transaction binding the contract method 0xa457c2d7.
+//
+// Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
+func (_NSBT *NSBTTransactorSession) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
+	return _NSBT.Contract.DecreaseAllowance(&_NSBT.TransactOpts, spender, subtractedValue)
+}
+
+// Deposit is a paid mutator transaction binding the contract method 0x47e7ef24.
+//
+// Solidity: function deposit(address account, uint256 amount) returns(bool)
+func (_NSBT *NSBTTransactor) Deposit(opts *bind.TransactOpts, account common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _NSBT.contract.Transact(opts, "deposit", account, amount)
+}
+
+// Deposit is a paid mutator transaction binding the contract method 0x47e7ef24.
+//
+// Solidity: function deposit(address account, uint256 amount) returns(bool)
+func (_NSBT *NSBTSession) Deposit(account common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _NSBT.Contract.Deposit(&_NSBT.TransactOpts, account, amount)
+}
+
+// Deposit is a paid mutator transaction binding the contract method 0x47e7ef24.
+//
+// Solidity: function deposit(address account, uint256 amount) returns(bool)
+func (_NSBT *NSBTTransactorSession) Deposit(account common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _NSBT.Contract.Deposit(&_NSBT.TransactOpts, account, amount)
+}
+
+// Deprecate is a paid mutator transaction binding the contract method 0x0fcc0c28.
+//
+// Solidity: function deprecate() returns()
+func (_NSBT *NSBTTransactor) Deprecate(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _NSBT.contract.Transact(opts, "deprecate")
+}
+
+// Deprecate is a paid mutator transaction binding the contract method 0x0fcc0c28.
+//
+// Solidity: function deprecate() returns()
+func (_NSBT *NSBTSession) Deprecate() (*types.Transaction, error) {
+	return _NSBT.Contract.Deprecate(&_NSBT.TransactOpts)
+}
+
+// Deprecate is a paid mutator transaction binding the contract method 0x0fcc0c28.
+//
+// Solidity: function deprecate() returns()
+func (_NSBT *NSBTTransactorSession) Deprecate() (*types.Transaction, error) {
+	return _NSBT.Contract.Deprecate(&_NSBT.TransactOpts)
+}
+
+// IncreaseAllowance is a paid mutator transaction binding the contract method 0x39509351.
+//
+// Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
+func (_NSBT *NSBTTransactor) IncreaseAllowance(opts *bind.TransactOpts, spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
+	return _NSBT.contract.Transact(opts, "increaseAllowance", spender, addedValue)
+}
+
+// IncreaseAllowance is a paid mutator transaction binding the contract method 0x39509351.
+//
+// Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
+func (_NSBT *NSBTSession) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
+	return _NSBT.Contract.IncreaseAllowance(&_NSBT.TransactOpts, spender, addedValue)
+}
+
+// IncreaseAllowance is a paid mutator transaction binding the contract method 0x39509351.
+//
+// Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
+func (_NSBT *NSBTTransactorSession) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
+	return _NSBT.Contract.IncreaseAllowance(&_NSBT.TransactOpts, spender, addedValue)
+}
+
+// Stake is a paid mutator transaction binding the contract method 0xa694fc3a.
+//
+// Solidity: function stake(uint256 reward) returns(bool)
+func (_NSBT *NSBTTransactor) Stake(opts *bind.TransactOpts, reward *big.Int) (*types.Transaction, error) {
+	return _NSBT.contract.Transact(opts, "stake", reward)
+}
+
+// Stake is a paid mutator transaction binding the contract method 0xa694fc3a.
+//
+// Solidity: function stake(uint256 reward) returns(bool)
+func (_NSBT *NSBTSession) Stake(reward *big.Int) (*types.Transaction, error) {
+	return _NSBT.Contract.Stake(&_NSBT.TransactOpts, reward)
+}
+
+// Stake is a paid mutator transaction binding the contract method 0xa694fc3a.
+//
+// Solidity: function stake(uint256 reward) returns(bool)
+func (_NSBT *NSBTTransactorSession) Stake(reward *big.Int) (*types.Transaction, error) {
+	return _NSBT.Contract.Stake(&_NSBT.TransactOpts, reward)
+}
+
+// Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
+//
+// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
+func (_NSBT *NSBTTransactor) Transfer(opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _NSBT.contract.Transact(opts, "transfer", recipient, amount)
+}
+
+// Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
+//
+// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
+func (_NSBT *NSBTSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _NSBT.Contract.Transfer(&_NSBT.TransactOpts, recipient, amount)
+}
+
+// Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
+//
+// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
+func (_NSBT *NSBTTransactorSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _NSBT.Contract.Transfer(&_NSBT.TransactOpts, recipient, amount)
+}
+
+// TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
+//
+// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
+func (_NSBT *NSBTTransactor) TransferFrom(opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _NSBT.contract.Transact(opts, "transferFrom", sender, recipient, amount)
+}
+
+// TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
+//
+// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
+func (_NSBT *NSBTSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _NSBT.Contract.TransferFrom(&_NSBT.TransactOpts, sender, recipient, amount)
+}
+
+// TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
+//
+// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
+func (_NSBT *NSBTTransactorSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _NSBT.Contract.TransferFrom(&_NSBT.TransactOpts, sender, recipient, amount)
+}
+
+// TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
+//
+// Solidity: function transferOwnership(address newOwner) returns()
+func (_NSBT *NSBTTransactor) TransferOwnership(opts *bind.TransactOpts, newOwner common.Address) (*types.Transaction, error) {
+	return _NSBT.contract.Transact(opts, "transferOwnership", newOwner)
+}
+
+// TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
+//
+// Solidity: function transferOwnership(address newOwner) returns()
+func (_NSBT *NSBTSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
+	return _NSBT.Contract.TransferOwnership(&_NSBT.TransactOpts, newOwner)
+}
+
+// TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
+//
+// Solidity: function transferOwnership(address newOwner) returns()
+func (_NSBT *NSBTTransactorSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
+	return _NSBT.Contract.TransferOwnership(&_NSBT.TransactOpts, newOwner)
+}
+
+// Withdraw is a paid mutator transaction binding the contract method 0x51cff8d9.
+//
+// Solidity: function withdraw(address account) returns(bool)
+func (_NSBT *NSBTTransactor) Withdraw(opts *bind.TransactOpts, account common.Address) (*types.Transaction, error) {
+	return _NSBT.contract.Transact(opts, "withdraw", account)
+}
+
+// Withdraw is a paid mutator transaction binding the contract method 0x51cff8d9.
+//
+// Solidity: function withdraw(address account) returns(bool)
+func (_NSBT *NSBTSession) Withdraw(account common.Address) (*types.Transaction, error) {
+	return _NSBT.Contract.Withdraw(&_NSBT.TransactOpts, account)
+}
+
+// Withdraw is a paid mutator transaction binding the contract method 0x51cff8d9.
+//
+// Solidity: function withdraw(address account) returns(bool)
+func (_NSBT *NSBTTransactorSession) Withdraw(account common.Address) (*types.Transaction, error) {
+	return _NSBT.Contract.Withdraw(&_NSBT.TransactOpts, account)
+}
+
+// NSBTApprovalIterator is returned from FilterApproval and is used to iterate over the raw logs and unpacked data for Approval events raised by the NSBT contract.
+type NSBTApprovalIterator struct {
+	Event *NSBTApproval // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *NSBTApprovalIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(NSBTApproval)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(NSBTApproval)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *NSBTApprovalIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *NSBTApprovalIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// NSBTApproval represents a Approval event raised by the NSBT contract.
+type NSBTApproval struct {
+	Owner   common.Address
+	Spender common.Address
+	Value   *big.Int
+	Raw     types.Log // Blockchain specific contextual infos
+}
+
+// FilterApproval is a free log retrieval operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
+//
+// Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
+func (_NSBT *NSBTFilterer) FilterApproval(opts *bind.FilterOpts, owner []common.Address, spender []common.Address) (*NSBTApprovalIterator, error) {
+
+	var ownerRule []interface{}
+	for _, ownerItem := range owner {
+		ownerRule = append(ownerRule, ownerItem)
+	}
+	var spenderRule []interface{}
+	for _, spenderItem := range spender {
+		spenderRule = append(spenderRule, spenderItem)
+	}
+
+	logs, sub, err := _NSBT.contract.FilterLogs(opts, "Approval", ownerRule, spenderRule)
+	if err != nil {
+		return nil, err
+	}
+	return &NSBTApprovalIterator{contract: _NSBT.contract, event: "Approval", logs: logs, sub: sub}, nil
+}
+
+// WatchApproval is a free log subscription operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
+//
+// Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
+func (_NSBT *NSBTFilterer) WatchApproval(opts *bind.WatchOpts, sink chan<- *NSBTApproval, owner []common.Address, spender []common.Address) (event.Subscription, error) {
+
+	var ownerRule []interface{}
+	for _, ownerItem := range owner {
+		ownerRule = append(ownerRule, ownerItem)
+	}
+	var spenderRule []interface{}
+	for _, spenderItem := range spender {
+		spenderRule = append(spenderRule, spenderItem)
+	}
+
+	logs, sub, err := _NSBT.contract.WatchLogs(opts, "Approval", ownerRule, spenderRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(NSBTApproval)
+				if err := _NSBT.contract.UnpackLog(event, "Approval", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseApproval is a log parse operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
+//
+// Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
+func (_NSBT *NSBTFilterer) ParseApproval(log types.Log) (*NSBTApproval, error) {
+	event := new(NSBTApproval)
+	if err := _NSBT.contract.UnpackLog(event, "Approval", log); err != nil {
+		return nil, err
+	}
+	return event, nil
+}
+
+// NSBTDeprecateIterator is returned from FilterDeprecate and is used to iterate over the raw logs and unpacked data for Deprecate events raised by the NSBT contract.
+type NSBTDeprecateIterator struct {
+	Event *NSBTDeprecate // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *NSBTDeprecateIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(NSBTDeprecate)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(NSBTDeprecate)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *NSBTDeprecateIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *NSBTDeprecateIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// NSBTDeprecate represents a Deprecate event raised by the NSBT contract.
+type NSBTDeprecate struct {
+	Account common.Address
+	Raw     types.Log // Blockchain specific contextual infos
+}
+
+// FilterDeprecate is a free log retrieval operation binding the contract event 0xcc358699805e9a8b7f77b522628c7cb9abd07d9efb86b6fb616af1609036a99e.
+//
+// Solidity: event Deprecate(address indexed account)
+func (_NSBT *NSBTFilterer) FilterDeprecate(opts *bind.FilterOpts, account []common.Address) (*NSBTDeprecateIterator, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	logs, sub, err := _NSBT.contract.FilterLogs(opts, "Deprecate", accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return &NSBTDeprecateIterator{contract: _NSBT.contract, event: "Deprecate", logs: logs, sub: sub}, nil
+}
+
+// WatchDeprecate is a free log subscription operation binding the contract event 0xcc358699805e9a8b7f77b522628c7cb9abd07d9efb86b6fb616af1609036a99e.
+//
+// Solidity: event Deprecate(address indexed account)
+func (_NSBT *NSBTFilterer) WatchDeprecate(opts *bind.WatchOpts, sink chan<- *NSBTDeprecate, account []common.Address) (event.Subscription, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	logs, sub, err := _NSBT.contract.WatchLogs(opts, "Deprecate", accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(NSBTDeprecate)
+				if err := _NSBT.contract.UnpackLog(event, "Deprecate", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseDeprecate is a log parse operation binding the contract event 0xcc358699805e9a8b7f77b522628c7cb9abd07d9efb86b6fb616af1609036a99e.
+//
+// Solidity: event Deprecate(address indexed account)
+func (_NSBT *NSBTFilterer) ParseDeprecate(log types.Log) (*NSBTDeprecate, error) {
+	event := new(NSBTDeprecate)
+	if err := _NSBT.contract.UnpackLog(event, "Deprecate", log); err != nil {
+		return nil, err
+	}
+	return event, nil
+}
+
+// NSBTRewardIterator is returned from FilterReward and is used to iterate over the raw logs and unpacked data for Reward events raised by the NSBT contract.
+type NSBTRewardIterator struct {
+	Event *NSBTReward // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *NSBTRewardIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(NSBTReward)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(NSBTReward)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *NSBTRewardIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *NSBTRewardIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// NSBTReward represents a Reward event raised by the NSBT contract.
+type NSBTReward struct {
+	Id     *big.Int
+	Amount *big.Int
+	Raw    types.Log // Blockchain specific contextual infos
+}
+
+// FilterReward is a free log retrieval operation binding the contract event 0x45cad8c10023de80f4c0672ff6c283b671e11aa93c92b9380cdf060d2790da52.
+//
+// Solidity: event Reward(uint256 id, uint256 amount)
+func (_NSBT *NSBTFilterer) FilterReward(opts *bind.FilterOpts) (*NSBTRewardIterator, error) {
+
+	logs, sub, err := _NSBT.contract.FilterLogs(opts, "Reward")
+	if err != nil {
+		return nil, err
+	}
+	return &NSBTRewardIterator{contract: _NSBT.contract, event: "Reward", logs: logs, sub: sub}, nil
+}
+
+// WatchReward is a free log subscription operation binding the contract event 0x45cad8c10023de80f4c0672ff6c283b671e11aa93c92b9380cdf060d2790da52.
+//
+// Solidity: event Reward(uint256 id, uint256 amount)
+func (_NSBT *NSBTFilterer) WatchReward(opts *bind.WatchOpts, sink chan<- *NSBTReward) (event.Subscription, error) {
+
+	logs, sub, err := _NSBT.contract.WatchLogs(opts, "Reward")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(NSBTReward)
+				if err := _NSBT.contract.UnpackLog(event, "Reward", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseReward is a log parse operation binding the contract event 0x45cad8c10023de80f4c0672ff6c283b671e11aa93c92b9380cdf060d2790da52.
+//
+// Solidity: event Reward(uint256 id, uint256 amount)
+func (_NSBT *NSBTFilterer) ParseReward(log types.Log) (*NSBTReward, error) {
+	event := new(NSBTReward)
+	if err := _NSBT.contract.UnpackLog(event, "Reward", log); err != nil {
+		return nil, err
+	}
+	return event, nil
+}
+
+// NSBTTransferIterator is returned from FilterTransfer and is used to iterate over the raw logs and unpacked data for Transfer events raised by the NSBT contract.
+type NSBTTransferIterator struct {
+	Event *NSBTTransfer // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *NSBTTransferIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(NSBTTransfer)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(NSBTTransfer)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *NSBTTransferIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *NSBTTransferIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// NSBTTransfer represents a Transfer event raised by the NSBT contract.
+type NSBTTransfer struct {
+	From  common.Address
+	To    common.Address
+	Value *big.Int
+	Raw   types.Log // Blockchain specific contextual infos
+}
+
+// FilterTransfer is a free log retrieval operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
+//
+// Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
+func (_NSBT *NSBTFilterer) FilterTransfer(opts *bind.FilterOpts, from []common.Address, to []common.Address) (*NSBTTransferIterator, error) {
+
+	var fromRule []interface{}
+	for _, fromItem := range from {
+		fromRule = append(fromRule, fromItem)
+	}
+	var toRule []interface{}
+	for _, toItem := range to {
+		toRule = append(toRule, toItem)
+	}
+
+	logs, sub, err := _NSBT.contract.FilterLogs(opts, "Transfer", fromRule, toRule)
+	if err != nil {
+		return nil, err
+	}
+	return &NSBTTransferIterator{contract: _NSBT.contract, event: "Transfer", logs: logs, sub: sub}, nil
+}
+
+// WatchTransfer is a free log subscription operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
+//
+// Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
+func (_NSBT *NSBTFilterer) WatchTransfer(opts *bind.WatchOpts, sink chan<- *NSBTTransfer, from []common.Address, to []common.Address) (event.Subscription, error) {
+
+	var fromRule []interface{}
+	for _, fromItem := range from {
+		fromRule = append(fromRule, fromItem)
+	}
+	var toRule []interface{}
+	for _, toItem := range to {
+		toRule = append(toRule, toItem)
+	}
+
+	logs, sub, err := _NSBT.contract.WatchLogs(opts, "Transfer", fromRule, toRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(NSBTTransfer)
+				if err := _NSBT.contract.UnpackLog(event, "Transfer", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseTransfer is a log parse operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
+//
+// Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
+func (_NSBT *NSBTFilterer) ParseTransfer(log types.Log) (*NSBTTransfer, error) {
+	event := new(NSBTTransfer)
+	if err := _NSBT.contract.UnpackLog(event, "Transfer", log); err != nil {
+		return nil, err
+	}
+	return event, nil
+}
+
 // OwnableABI is the input ABI used to generate the binding from.
 const OwnableABI = "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
 
@@ -2586,1167 +3747,6 @@ func (_StandartToken *StandartTokenFilterer) WatchTransfer(opts *bind.WatchOpts,
 func (_StandartToken *StandartTokenFilterer) ParseTransfer(log types.Log) (*StandartTokenTransfer, error) {
 	event := new(StandartTokenTransfer)
 	if err := _StandartToken.contract.UnpackLog(event, "Transfer", log); err != nil {
-		return nil, err
-	}
-	return event, nil
-}
-
-// USDNABI is the input ABI used to generate the binding from.
-const USDNABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Deprecate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Reward\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"subtractedValue\",\"type\":\"uint256\"}],\"name\":\"decreaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"deposit\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"deprecate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"addedValue\",\"type\":\"uint256\"}],\"name\":\"increaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"reward\",\"type\":\"uint256\"}],\"name\":\"stake\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"withdraw\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
-
-// USDNFuncSigs maps the 4-byte function signature to its string representation.
-var USDNFuncSigs = map[string]string{
-	"dd62ed3e": "allowance(address,address)",
-	"095ea7b3": "approve(address,uint256)",
-	"70a08231": "balanceOf(address)",
-	"313ce567": "decimals()",
-	"a457c2d7": "decreaseAllowance(address,uint256)",
-	"47e7ef24": "deposit(address,uint256)",
-	"0fcc0c28": "deprecate()",
-	"39509351": "increaseAllowance(address,uint256)",
-	"06fdde03": "name()",
-	"a694fc3a": "stake(uint256)",
-	"95d89b41": "symbol()",
-	"18160ddd": "totalSupply()",
-	"a9059cbb": "transfer(address,uint256)",
-	"23b872dd": "transferFrom(address,address,uint256)",
-	"f2fde38b": "transferOwnership(address)",
-	"51cff8d9": "withdraw(address)",
-}
-
-// USDNBin is the compiled bytecode used for deploying new contracts.
-var USDNBin = "0x608060405234801561001057600080fd5b50600080546001600160a01b03199081163390811783556001805490921617815560028054918201815590915264e8d4a510007f405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ace90910155611a30806100776000396000f3fe608060405234801561001057600080fd5b50600436106101005760003560e01c806351cff8d911610097578063a694fc3a11610066578063a694fc3a14610312578063a9059cbb1461032f578063dd62ed3e1461035b578063f2fde38b1461038957610100565b806351cff8d91461029257806370a08231146102b857806395d89b41146102de578063a457c2d7146102e657610100565b806323b872dd116100d357806323b872dd146101e6578063313ce5671461021c578063395093511461023a57806347e7ef241461026657610100565b806306fdde0314610105578063095ea7b3146101825780630fcc0c28146101c257806318160ddd146101cc575b600080fd5b61010d6103af565b6040805160208082528351818301528351919283929083019185019080838360005b8381101561014757818101518382015260200161012f565b50505050905090810190601f1680156101745780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b6101ae6004803603604081101561019857600080fd5b506001600160a01b0381351690602001356103dd565b604080519115158252519081900360200190f35b6101ca6103f3565b005b6101d4610491565b60408051918252519081900360200190f35b6101ae600480360360608110156101fc57600080fd5b506001600160a01b038135811691602081013590911690604001356104e2565b61022461056a565b6040805160ff9092168252519081900360200190f35b6101ae6004803603604081101561025057600080fd5b506001600160a01b03813516906020013561056f565b6101ae6004803603604081101561027c57600080fd5b506001600160a01b0381351690602001356105f5565b6101ae600480360360208110156102a857600080fd5b50356001600160a01b0316610928565b6101d4600480360360208110156102ce57600080fd5b50356001600160a01b0316610be3565b61010d610dee565b6101ae600480360360408110156102fc57600080fd5b506001600160a01b038135169060200135610e0e565b6101ae6004803603602081101561032857600080fd5b5035610e7e565b6101ae6004803603604081101561034557600080fd5b506001600160a01b038135169060200135611155565b6101d46004803603604081101561037157600080fd5b506001600160a01b0381358116916020013516611162565b6101ca6004803603602081101561039f57600080fd5b50356001600160a01b031661118d565b60408051808201909152601481527315dc985c1c19590813995d5d1c9a5b9bc81554d160621b602082015290565b60006103ea338484611252565b50600192915050565b6000546001600160a01b031633148061041657506001546001600160a01b031633145b6104515760405162461bcd60e51b815260040180806020018281038252602981526020018061188a6029913960400191505060405180910390fd5b6001805460ff60a01b1916600160a01b17905560405133907fcc358699805e9a8b7f77b522628c7cb9abd07d9efb86b6fb616af1609036a99e90600090a2565b600354600454600091908082018211156104dc5760405162461bcd60e51b81526004018080602001828103825260228152602001806119006022913960400191505060405180910390fd5b01905090565b60006104ef848484611387565b6001600160a01b0384166000908152600860209081526040808320338452909152902054808311156105525760405162461bcd60e51b81526004018080602001828103825260288152602001806118b36028913960400191505060405180910390fd5b61055f8533858403611252565b506001949350505050565b601290565b3360009081526008602090815260408083206001600160a01b03861684529091528120548281018111156105de576040805162461bcd60e51b81526020600482015260116024820152706164646974696f6e206f766572666c6f7760781b604482015290519081900360640190fd5b6105eb3385858401611252565b5060019392505050565b600080546001600160a01b031633148061061957506001546001600160a01b031633145b6106545760405162461bcd60e51b815260040180806020018281038252602981526020018061188a6029913960400191505060405180910390fd5b600154600160a01b900460ff161561069d5760405162461bcd60e51b81526004018080602001828103825260248152602001806119d76024913960400191505060405180910390fd5b600082116106e9576040805162461bcd60e51b81526020600482015260146024820152730616d6f756e742073686f756c64206265203e20360641b604482015290519081900360640190fd5b6001600160a01b038316610744576040805162461bcd60e51b815260206004820152601b60248201527f6465706f73697420746f20746865207a65726f20616464726573730000000000604482015290519081900360640190fd5b60045482810181111561079e576040805162461bcd60e51b815260206004820152601d60248201527f6164646974696f6e206f766572666c6f7720666f72206465706f736974000000604482015290519081900360640190fd5b8083016004556001600160a01b03841660009081526006602052604090205480610809576107cb85610be3565b6001600160a01b03861660009081526005602090815260408083209390935560025460078252838320600019909101905560069052208490556108ee565b6001600160a01b038516600090815260076020526040902054600254600019018114156108a957818583011015610887576040805162461bcd60e51b815260206004820152601d60248201527f6164646974696f6e206f766572666c6f7720666f72206465706f736974000000604482015290519081900360640190fd5b6001600160a01b038616600090815260066020526040902082860190556108ec565b6108b286610be3565b6001600160a01b03871660009081526005602090815260408083209390935560025460078252838320600019909101905560069052208590555b505b6040805185815290516001600160a01b038716916000916000805160206119498339815191529181900360200190a3506001949350505050565b600080546001600160a01b031633148061094c57506001546001600160a01b031633145b6109875760405162461bcd60e51b815260040180806020018281038252602981526020018061188a6029913960400191505060405180910390fd5b600154600160a01b900460ff16156109d05760405162461bcd60e51b81526004018080602001828103825260248152602001806119d76024913960400191505060405180910390fd5b6001600160a01b03821660009081526006602090815260408083205460079092529091205460025460001901811415610b2a576001600160a01b038416600090815260056020526040902054600354811115610a5d5760405162461bcd60e51b81526004018080602001828103825260258152602001806118db6025913960400191505060405180910390fd5b600380548290039055600454831115610aa75760405162461bcd60e51b81526004018080602001828103825260278152602001806119226027913960400191505060405180910390fd5b8260045403600481905550808382011015610af35760405162461bcd60e51b81526004018080602001828103825260308152602001806117936030913960400191505060405180910390fd5b60408051828501815290516000916001600160a01b038816916000805160206119498339815191529181900360200190a350610bb2565b6000610b3585610be3565b60035490915080821115610b7a5760405162461bcd60e51b81526004018080602001828103825260258152602001806118db6025913960400191505060405180910390fd5b8181036003556040805183815290516000916001600160a01b038916916000805160206119498339815191529181900360200190a350505b5050506001600160a01b0381166000908152600560209081526040808320839055600690915281205560015b919050565b6001600160a01b038116600090815260056020908152604080832054600690925282205481158015610c13575080155b15610c2357600092505050610bde565b6001600160a01b03841660009081526007602052604090205460025460001901811415610caa57828284011015610ca1576040805162461bcd60e51b815260206004820152601d60248201527f6164646974696f6e206f766572666c6f7720666f722062616c616e6365000000604482015290519081900360640190fd5b50019050610bde565b81610d005760028054600091906000198101908110610cc557fe5b9060005260206000200154905060028281548110610cdf57fe5b906000526020600020015484820281610cf457fe5b04945050505050610bde565b600060028281548110610d0f57fe5b600091825260209091200154600280546000198101908110610d2d57fe5b9060005260206000200154850281610d4157fe5b049050600060028360010181548110610d5657fe5b600091825260209091200154600280546000198101908110610d7457fe5b9060005260206000200154850281610d8857fe5b049050818282011015610de2576040805162461bcd60e51b815260206004820152601d60248201527f6164646974696f6e206f766572666c6f7720666f722062616c616e6365000000604482015290519081900360640190fd5b019350610bde92505050565b60408051808201909152600681526533bbaaa9a22760d11b602082015290565b3360009081526008602090815260408083206001600160a01b038616845290915281205480831115610e715760405162461bcd60e51b81526004018080602001828103825260258152602001806119b26025913960400191505060405180910390fd5b6105eb3385858403611252565b600080546001600160a01b0316331480610ea257506001546001600160a01b031633145b610edd5760405162461bcd60e51b815260040180806020018281038252602981526020018061188a6029913960400191505060405180910390fd5b600154600160a01b900460ff1615610f265760405162461bcd60e51b81526004018080602001828103825260248152602001806119d76024913960400191505060405180910390fd5b60008211610f72576040805162461bcd60e51b815260206004820152601460248201527307265776172642073686f756c64206265203e20360641b604482015290519081900360640190fd5b60035460045481610fbd576002805460018101825560009190915264e8d4a510007f405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ace909101556110c2565b60028054600091906000198101908110610fd357fe5b9060005260206000200154905060008364e8d4a51000870281610ff257fe5b0490508064e8d4a5100082011015611051576040805162461bcd60e51b815260206004820152601d60248201527f6164646974696f6e206f766572666c6f7720666f722070657263656e74000000604482015290519081900360640190fd5b64e8d4a51000818101906002908483028254600181018455600093845260209093209190049101558685018511156110ba5760405162461bcd60e51b815260040180806020018281038252602b81526020018061185f602b913960400191505060405180910390fd5b505050908301905b8181830110156111035760405162461bcd60e51b81526004018080602001828103825260228152602001806119006022913960400191505060405180910390fd5b8181016003556000600455600254604080519182526020820186905280517f45cad8c10023de80f4c0672ff6c283b671e11aa93c92b9380cdf060d2790da529281900390910190a15060019392505050565b60006103ea338484611387565b6001600160a01b03918216600090815260086020908152604080832093909416825291909152205490565b6000546001600160a01b03163314806111b057506001546001600160a01b031633145b6111eb5760405162461bcd60e51b815260040180806020018281038252602981526020018061188a6029913960400191505060405180910390fd5b6001600160a01b0381166112305760405162461bcd60e51b81526004018080602001828103825260268152602001806117c36026913960400191505060405180910390fd5b600080546001600160a01b0319166001600160a01b0392909216919091179055565b600154600160a01b900460ff161561129b5760405162461bcd60e51b81526004018080602001828103825260248152602001806119d76024913960400191505060405180910390fd5b6001600160a01b0383166112e05760405162461bcd60e51b815260040180806020018281038252602481526020018061198e6024913960400191505060405180910390fd5b6001600160a01b0382166113255760405162461bcd60e51b81526004018080602001828103825260228152602001806117e96022913960400191505060405180910390fd5b6001600160a01b03808416600081815260086020908152604080832094871680845294825291829020859055815185815291517f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b9259281900390910190a3505050565b600154600160a01b900460ff16156113d05760405162461bcd60e51b81526004018080602001828103825260248152602001806119d76024913960400191505060405180910390fd5b6000811161141c576040805162461bcd60e51b81526020600482015260146024820152730616d6f756e742073686f756c64206265203e20360641b604482015290519081900360640190fd5b6001600160a01b0383166114615760405162461bcd60e51b81526004018080602001828103825260258152602001806119696025913960400191505060405180910390fd5b6001600160a01b0382166114a65760405162461bcd60e51b81526004018080602001828103825260238152602001806117706023913960400191505060405180910390fd5b6001600160a01b038316600090815260066020908152604080832054600790925282205490918215806114df5750600254600019018214155b156115745760006114ef87610be3565b9050808511156115305760405162461bcd60e51b815260040180806020018281038252602681526020018061180b6026913960400191505060405180910390fd5b6001600160a01b0387166000908152600560209081526040808320938890039093556006815282822082905560025460079091529190206000199091019055611628565b82841161159f57506001600160a01b0385166000908152600660205260409020838303905582611628565b6001600160a01b0386166000908152600560205260409020548385038110156115f95760405162461bcd60e51b815260040180806020018281038252602681526020018061180b6026913960400191505060405180910390fd5b6001600160a01b0387166000908152600560209081526040808320878903909403909355600690529081205550815b6001600160a01b03851660009081526006602090815260408083205460079092529091205490935091508215806116655750600254600019018214155b156116fe57600061167586610be3565b905080818387030110156116ba5760405162461bcd60e51b815260040180806020018281038252602e815260200180611831602e913960400191505060405180910390fd5b6001600160a01b038616600090815260056020908152604080832085890394909401909355600254600782528383206000199091019055600690522081905561172e565b6001600160a01b038516600090815260056020908152604080832080548589030190556006909152902083820190555b846001600160a01b0316866001600160a01b0316600080516020611949833981519152866040518082815260200191505060405180910390a350505050505056fe45524332303a207472616e7366657220746f20746865207a65726f20616464726573736164646974696f6e206f766572666c6f7720666f7220746f74616c2062616c616e6365202b206f6c644465706f7369744f776e61626c653a206e6577206f776e657220697320746865207a65726f206164647265737345524332303a20617070726f766520746f20746865207a65726f206164647265737345524332303a207472616e7366657220616d6f756e7420657863656564732062616c616e636545524332303a206164646974696f6e206f766572666c6f7720666f7220726563697069656e742062616c616e63656164646974696f6e206f766572666c6f7720666f7220746f74616c20737570706c79202b207265776172644f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572206f722061646d696e45524332303a207472616e7366657220616d6f756e74206578636565647320616c6c6f77616e63657375627472616374696f6e206f766572666c6f7720666f7220746f74616c20737570706c796164646974696f6e206f766572666c6f7720666f7220746f74616c20737570706c797375627472616374696f6e206f766572666c6f7720666f72206c6971756964206465706f736974ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef45524332303a207472616e736665722066726f6d20746865207a65726f206164647265737345524332303a20617070726f76652066726f6d20746865207a65726f206164647265737345524332303a2064656372656173656420616c6c6f77616e63652062656c6f77207a65726f446570726563617465626c653a20636f6e74726163742069732064657072656361746564a2646970667358221220a45fb5f84b6cbafc66ea3c0127d9008982afa221d5b31aea0aac1ab2027e221a64736f6c634300060a0033"
-
-// DeployUSDN deploys a new Ethereum contract, binding an instance of USDN to it.
-func DeployUSDN(auth *bind.TransactOpts, backend bind.ContractBackend) (common.Address, *types.Transaction, *USDN, error) {
-	parsed, err := abi.JSON(strings.NewReader(USDNABI))
-	if err != nil {
-		return common.Address{}, nil, nil, err
-	}
-
-	address, tx, contract, err := bind.DeployContract(auth, parsed, common.FromHex(USDNBin), backend)
-	if err != nil {
-		return common.Address{}, nil, nil, err
-	}
-	return address, tx, &USDN{USDNCaller: USDNCaller{contract: contract}, USDNTransactor: USDNTransactor{contract: contract}, USDNFilterer: USDNFilterer{contract: contract}}, nil
-}
-
-// USDN is an auto generated Go binding around an Ethereum contract.
-type USDN struct {
-	USDNCaller     // Read-only binding to the contract
-	USDNTransactor // Write-only binding to the contract
-	USDNFilterer   // Log filterer for contract events
-}
-
-// USDNCaller is an auto generated read-only Go binding around an Ethereum contract.
-type USDNCaller struct {
-	contract *bind.BoundContract // Generic contract wrapper for the low level calls
-}
-
-// USDNTransactor is an auto generated write-only Go binding around an Ethereum contract.
-type USDNTransactor struct {
-	contract *bind.BoundContract // Generic contract wrapper for the low level calls
-}
-
-// USDNFilterer is an auto generated log filtering Go binding around an Ethereum contract events.
-type USDNFilterer struct {
-	contract *bind.BoundContract // Generic contract wrapper for the low level calls
-}
-
-// USDNSession is an auto generated Go binding around an Ethereum contract,
-// with pre-set call and transact options.
-type USDNSession struct {
-	Contract     *USDN             // Generic contract binding to set the session for
-	CallOpts     bind.CallOpts     // Call options to use throughout this session
-	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
-}
-
-// USDNCallerSession is an auto generated read-only Go binding around an Ethereum contract,
-// with pre-set call options.
-type USDNCallerSession struct {
-	Contract *USDNCaller   // Generic contract caller binding to set the session for
-	CallOpts bind.CallOpts // Call options to use throughout this session
-}
-
-// USDNTransactorSession is an auto generated write-only Go binding around an Ethereum contract,
-// with pre-set transact options.
-type USDNTransactorSession struct {
-	Contract     *USDNTransactor   // Generic contract transactor binding to set the session for
-	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
-}
-
-// USDNRaw is an auto generated low-level Go binding around an Ethereum contract.
-type USDNRaw struct {
-	Contract *USDN // Generic contract binding to access the raw methods on
-}
-
-// USDNCallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
-type USDNCallerRaw struct {
-	Contract *USDNCaller // Generic read-only contract binding to access the raw methods on
-}
-
-// USDNTransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
-type USDNTransactorRaw struct {
-	Contract *USDNTransactor // Generic write-only contract binding to access the raw methods on
-}
-
-// NewUSDN creates a new instance of USDN, bound to a specific deployed contract.
-func NewUSDN(address common.Address, backend bind.ContractBackend) (*USDN, error) {
-	contract, err := bindUSDN(address, backend, backend, backend)
-	if err != nil {
-		return nil, err
-	}
-	return &USDN{USDNCaller: USDNCaller{contract: contract}, USDNTransactor: USDNTransactor{contract: contract}, USDNFilterer: USDNFilterer{contract: contract}}, nil
-}
-
-// NewUSDNCaller creates a new read-only instance of USDN, bound to a specific deployed contract.
-func NewUSDNCaller(address common.Address, caller bind.ContractCaller) (*USDNCaller, error) {
-	contract, err := bindUSDN(address, caller, nil, nil)
-	if err != nil {
-		return nil, err
-	}
-	return &USDNCaller{contract: contract}, nil
-}
-
-// NewUSDNTransactor creates a new write-only instance of USDN, bound to a specific deployed contract.
-func NewUSDNTransactor(address common.Address, transactor bind.ContractTransactor) (*USDNTransactor, error) {
-	contract, err := bindUSDN(address, nil, transactor, nil)
-	if err != nil {
-		return nil, err
-	}
-	return &USDNTransactor{contract: contract}, nil
-}
-
-// NewUSDNFilterer creates a new log filterer instance of USDN, bound to a specific deployed contract.
-func NewUSDNFilterer(address common.Address, filterer bind.ContractFilterer) (*USDNFilterer, error) {
-	contract, err := bindUSDN(address, nil, nil, filterer)
-	if err != nil {
-		return nil, err
-	}
-	return &USDNFilterer{contract: contract}, nil
-}
-
-// bindUSDN binds a generic wrapper to an already deployed contract.
-func bindUSDN(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor, filterer bind.ContractFilterer) (*bind.BoundContract, error) {
-	parsed, err := abi.JSON(strings.NewReader(USDNABI))
-	if err != nil {
-		return nil, err
-	}
-	return bind.NewBoundContract(address, parsed, caller, transactor, filterer), nil
-}
-
-// Call invokes the (constant) contract method with params as input values and
-// sets the output to result. The result type might be a single field for simple
-// returns, a slice of interfaces for anonymous returns and a struct for named
-// returns.
-func (_USDN *USDNRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
-	return _USDN.Contract.USDNCaller.contract.Call(opts, result, method, params...)
-}
-
-// Transfer initiates a plain transaction to move funds to the contract, calling
-// its default method if one is available.
-func (_USDN *USDNRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _USDN.Contract.USDNTransactor.contract.Transfer(opts)
-}
-
-// Transact invokes the (paid) contract method with params as input values.
-func (_USDN *USDNRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _USDN.Contract.USDNTransactor.contract.Transact(opts, method, params...)
-}
-
-// Call invokes the (constant) contract method with params as input values and
-// sets the output to result. The result type might be a single field for simple
-// returns, a slice of interfaces for anonymous returns and a struct for named
-// returns.
-func (_USDN *USDNCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
-	return _USDN.Contract.contract.Call(opts, result, method, params...)
-}
-
-// Transfer initiates a plain transaction to move funds to the contract, calling
-// its default method if one is available.
-func (_USDN *USDNTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _USDN.Contract.contract.Transfer(opts)
-}
-
-// Transact invokes the (paid) contract method with params as input values.
-func (_USDN *USDNTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _USDN.Contract.contract.Transact(opts, method, params...)
-}
-
-// Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
-//
-// Solidity: function allowance(address owner, address spender) view returns(uint256)
-func (_USDN *USDNCaller) Allowance(opts *bind.CallOpts, owner common.Address, spender common.Address) (*big.Int, error) {
-	var out []interface{}
-	err := _USDN.contract.Call(opts, &out, "allowance", owner, spender)
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
-}
-
-// Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
-//
-// Solidity: function allowance(address owner, address spender) view returns(uint256)
-func (_USDN *USDNSession) Allowance(owner common.Address, spender common.Address) (*big.Int, error) {
-	return _USDN.Contract.Allowance(&_USDN.CallOpts, owner, spender)
-}
-
-// Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
-//
-// Solidity: function allowance(address owner, address spender) view returns(uint256)
-func (_USDN *USDNCallerSession) Allowance(owner common.Address, spender common.Address) (*big.Int, error) {
-	return _USDN.Contract.Allowance(&_USDN.CallOpts, owner, spender)
-}
-
-// BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
-//
-// Solidity: function balanceOf(address account) view returns(uint256)
-func (_USDN *USDNCaller) BalanceOf(opts *bind.CallOpts, account common.Address) (*big.Int, error) {
-	var out []interface{}
-	err := _USDN.contract.Call(opts, &out, "balanceOf", account)
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
-}
-
-// BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
-//
-// Solidity: function balanceOf(address account) view returns(uint256)
-func (_USDN *USDNSession) BalanceOf(account common.Address) (*big.Int, error) {
-	return _USDN.Contract.BalanceOf(&_USDN.CallOpts, account)
-}
-
-// BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
-//
-// Solidity: function balanceOf(address account) view returns(uint256)
-func (_USDN *USDNCallerSession) BalanceOf(account common.Address) (*big.Int, error) {
-	return _USDN.Contract.BalanceOf(&_USDN.CallOpts, account)
-}
-
-// Decimals is a free data retrieval call binding the contract method 0x313ce567.
-//
-// Solidity: function decimals() pure returns(uint8)
-func (_USDN *USDNCaller) Decimals(opts *bind.CallOpts) (uint8, error) {
-	var out []interface{}
-	err := _USDN.contract.Call(opts, &out, "decimals")
-
-	if err != nil {
-		return *new(uint8), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(uint8)).(*uint8)
-
-	return out0, err
-
-}
-
-// Decimals is a free data retrieval call binding the contract method 0x313ce567.
-//
-// Solidity: function decimals() pure returns(uint8)
-func (_USDN *USDNSession) Decimals() (uint8, error) {
-	return _USDN.Contract.Decimals(&_USDN.CallOpts)
-}
-
-// Decimals is a free data retrieval call binding the contract method 0x313ce567.
-//
-// Solidity: function decimals() pure returns(uint8)
-func (_USDN *USDNCallerSession) Decimals() (uint8, error) {
-	return _USDN.Contract.Decimals(&_USDN.CallOpts)
-}
-
-// Name is a free data retrieval call binding the contract method 0x06fdde03.
-//
-// Solidity: function name() pure returns(string)
-func (_USDN *USDNCaller) Name(opts *bind.CallOpts) (string, error) {
-	var out []interface{}
-	err := _USDN.contract.Call(opts, &out, "name")
-
-	if err != nil {
-		return *new(string), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(string)).(*string)
-
-	return out0, err
-
-}
-
-// Name is a free data retrieval call binding the contract method 0x06fdde03.
-//
-// Solidity: function name() pure returns(string)
-func (_USDN *USDNSession) Name() (string, error) {
-	return _USDN.Contract.Name(&_USDN.CallOpts)
-}
-
-// Name is a free data retrieval call binding the contract method 0x06fdde03.
-//
-// Solidity: function name() pure returns(string)
-func (_USDN *USDNCallerSession) Name() (string, error) {
-	return _USDN.Contract.Name(&_USDN.CallOpts)
-}
-
-// Symbol is a free data retrieval call binding the contract method 0x95d89b41.
-//
-// Solidity: function symbol() pure returns(string)
-func (_USDN *USDNCaller) Symbol(opts *bind.CallOpts) (string, error) {
-	var out []interface{}
-	err := _USDN.contract.Call(opts, &out, "symbol")
-
-	if err != nil {
-		return *new(string), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(string)).(*string)
-
-	return out0, err
-
-}
-
-// Symbol is a free data retrieval call binding the contract method 0x95d89b41.
-//
-// Solidity: function symbol() pure returns(string)
-func (_USDN *USDNSession) Symbol() (string, error) {
-	return _USDN.Contract.Symbol(&_USDN.CallOpts)
-}
-
-// Symbol is a free data retrieval call binding the contract method 0x95d89b41.
-//
-// Solidity: function symbol() pure returns(string)
-func (_USDN *USDNCallerSession) Symbol() (string, error) {
-	return _USDN.Contract.Symbol(&_USDN.CallOpts)
-}
-
-// TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
-//
-// Solidity: function totalSupply() view returns(uint256)
-func (_USDN *USDNCaller) TotalSupply(opts *bind.CallOpts) (*big.Int, error) {
-	var out []interface{}
-	err := _USDN.contract.Call(opts, &out, "totalSupply")
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
-}
-
-// TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
-//
-// Solidity: function totalSupply() view returns(uint256)
-func (_USDN *USDNSession) TotalSupply() (*big.Int, error) {
-	return _USDN.Contract.TotalSupply(&_USDN.CallOpts)
-}
-
-// TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
-//
-// Solidity: function totalSupply() view returns(uint256)
-func (_USDN *USDNCallerSession) TotalSupply() (*big.Int, error) {
-	return _USDN.Contract.TotalSupply(&_USDN.CallOpts)
-}
-
-// Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
-//
-// Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_USDN *USDNTransactor) Approve(opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _USDN.contract.Transact(opts, "approve", spender, amount)
-}
-
-// Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
-//
-// Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_USDN *USDNSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _USDN.Contract.Approve(&_USDN.TransactOpts, spender, amount)
-}
-
-// Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
-//
-// Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_USDN *USDNTransactorSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _USDN.Contract.Approve(&_USDN.TransactOpts, spender, amount)
-}
-
-// DecreaseAllowance is a paid mutator transaction binding the contract method 0xa457c2d7.
-//
-// Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_USDN *USDNTransactor) DecreaseAllowance(opts *bind.TransactOpts, spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
-	return _USDN.contract.Transact(opts, "decreaseAllowance", spender, subtractedValue)
-}
-
-// DecreaseAllowance is a paid mutator transaction binding the contract method 0xa457c2d7.
-//
-// Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_USDN *USDNSession) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
-	return _USDN.Contract.DecreaseAllowance(&_USDN.TransactOpts, spender, subtractedValue)
-}
-
-// DecreaseAllowance is a paid mutator transaction binding the contract method 0xa457c2d7.
-//
-// Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_USDN *USDNTransactorSession) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
-	return _USDN.Contract.DecreaseAllowance(&_USDN.TransactOpts, spender, subtractedValue)
-}
-
-// Deposit is a paid mutator transaction binding the contract method 0x47e7ef24.
-//
-// Solidity: function deposit(address account, uint256 amount) returns(bool)
-func (_USDN *USDNTransactor) Deposit(opts *bind.TransactOpts, account common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _USDN.contract.Transact(opts, "deposit", account, amount)
-}
-
-// Deposit is a paid mutator transaction binding the contract method 0x47e7ef24.
-//
-// Solidity: function deposit(address account, uint256 amount) returns(bool)
-func (_USDN *USDNSession) Deposit(account common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _USDN.Contract.Deposit(&_USDN.TransactOpts, account, amount)
-}
-
-// Deposit is a paid mutator transaction binding the contract method 0x47e7ef24.
-//
-// Solidity: function deposit(address account, uint256 amount) returns(bool)
-func (_USDN *USDNTransactorSession) Deposit(account common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _USDN.Contract.Deposit(&_USDN.TransactOpts, account, amount)
-}
-
-// Deprecate is a paid mutator transaction binding the contract method 0x0fcc0c28.
-//
-// Solidity: function deprecate() returns()
-func (_USDN *USDNTransactor) Deprecate(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _USDN.contract.Transact(opts, "deprecate")
-}
-
-// Deprecate is a paid mutator transaction binding the contract method 0x0fcc0c28.
-//
-// Solidity: function deprecate() returns()
-func (_USDN *USDNSession) Deprecate() (*types.Transaction, error) {
-	return _USDN.Contract.Deprecate(&_USDN.TransactOpts)
-}
-
-// Deprecate is a paid mutator transaction binding the contract method 0x0fcc0c28.
-//
-// Solidity: function deprecate() returns()
-func (_USDN *USDNTransactorSession) Deprecate() (*types.Transaction, error) {
-	return _USDN.Contract.Deprecate(&_USDN.TransactOpts)
-}
-
-// IncreaseAllowance is a paid mutator transaction binding the contract method 0x39509351.
-//
-// Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
-func (_USDN *USDNTransactor) IncreaseAllowance(opts *bind.TransactOpts, spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
-	return _USDN.contract.Transact(opts, "increaseAllowance", spender, addedValue)
-}
-
-// IncreaseAllowance is a paid mutator transaction binding the contract method 0x39509351.
-//
-// Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
-func (_USDN *USDNSession) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
-	return _USDN.Contract.IncreaseAllowance(&_USDN.TransactOpts, spender, addedValue)
-}
-
-// IncreaseAllowance is a paid mutator transaction binding the contract method 0x39509351.
-//
-// Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
-func (_USDN *USDNTransactorSession) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
-	return _USDN.Contract.IncreaseAllowance(&_USDN.TransactOpts, spender, addedValue)
-}
-
-// Stake is a paid mutator transaction binding the contract method 0xa694fc3a.
-//
-// Solidity: function stake(uint256 reward) returns(bool)
-func (_USDN *USDNTransactor) Stake(opts *bind.TransactOpts, reward *big.Int) (*types.Transaction, error) {
-	return _USDN.contract.Transact(opts, "stake", reward)
-}
-
-// Stake is a paid mutator transaction binding the contract method 0xa694fc3a.
-//
-// Solidity: function stake(uint256 reward) returns(bool)
-func (_USDN *USDNSession) Stake(reward *big.Int) (*types.Transaction, error) {
-	return _USDN.Contract.Stake(&_USDN.TransactOpts, reward)
-}
-
-// Stake is a paid mutator transaction binding the contract method 0xa694fc3a.
-//
-// Solidity: function stake(uint256 reward) returns(bool)
-func (_USDN *USDNTransactorSession) Stake(reward *big.Int) (*types.Transaction, error) {
-	return _USDN.Contract.Stake(&_USDN.TransactOpts, reward)
-}
-
-// Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
-//
-// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_USDN *USDNTransactor) Transfer(opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _USDN.contract.Transact(opts, "transfer", recipient, amount)
-}
-
-// Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
-//
-// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_USDN *USDNSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _USDN.Contract.Transfer(&_USDN.TransactOpts, recipient, amount)
-}
-
-// Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
-//
-// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_USDN *USDNTransactorSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _USDN.Contract.Transfer(&_USDN.TransactOpts, recipient, amount)
-}
-
-// TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
-//
-// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_USDN *USDNTransactor) TransferFrom(opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _USDN.contract.Transact(opts, "transferFrom", sender, recipient, amount)
-}
-
-// TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
-//
-// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_USDN *USDNSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _USDN.Contract.TransferFrom(&_USDN.TransactOpts, sender, recipient, amount)
-}
-
-// TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
-//
-// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_USDN *USDNTransactorSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _USDN.Contract.TransferFrom(&_USDN.TransactOpts, sender, recipient, amount)
-}
-
-// TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
-//
-// Solidity: function transferOwnership(address newOwner) returns()
-func (_USDN *USDNTransactor) TransferOwnership(opts *bind.TransactOpts, newOwner common.Address) (*types.Transaction, error) {
-	return _USDN.contract.Transact(opts, "transferOwnership", newOwner)
-}
-
-// TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
-//
-// Solidity: function transferOwnership(address newOwner) returns()
-func (_USDN *USDNSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
-	return _USDN.Contract.TransferOwnership(&_USDN.TransactOpts, newOwner)
-}
-
-// TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
-//
-// Solidity: function transferOwnership(address newOwner) returns()
-func (_USDN *USDNTransactorSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
-	return _USDN.Contract.TransferOwnership(&_USDN.TransactOpts, newOwner)
-}
-
-// Withdraw is a paid mutator transaction binding the contract method 0x51cff8d9.
-//
-// Solidity: function withdraw(address account) returns(bool)
-func (_USDN *USDNTransactor) Withdraw(opts *bind.TransactOpts, account common.Address) (*types.Transaction, error) {
-	return _USDN.contract.Transact(opts, "withdraw", account)
-}
-
-// Withdraw is a paid mutator transaction binding the contract method 0x51cff8d9.
-//
-// Solidity: function withdraw(address account) returns(bool)
-func (_USDN *USDNSession) Withdraw(account common.Address) (*types.Transaction, error) {
-	return _USDN.Contract.Withdraw(&_USDN.TransactOpts, account)
-}
-
-// Withdraw is a paid mutator transaction binding the contract method 0x51cff8d9.
-//
-// Solidity: function withdraw(address account) returns(bool)
-func (_USDN *USDNTransactorSession) Withdraw(account common.Address) (*types.Transaction, error) {
-	return _USDN.Contract.Withdraw(&_USDN.TransactOpts, account)
-}
-
-// USDNApprovalIterator is returned from FilterApproval and is used to iterate over the raw logs and unpacked data for Approval events raised by the USDN contract.
-type USDNApprovalIterator struct {
-	Event *USDNApproval // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *USDNApprovalIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(USDNApproval)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(USDNApproval)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *USDNApprovalIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *USDNApprovalIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// USDNApproval represents a Approval event raised by the USDN contract.
-type USDNApproval struct {
-	Owner   common.Address
-	Spender common.Address
-	Value   *big.Int
-	Raw     types.Log // Blockchain specific contextual infos
-}
-
-// FilterApproval is a free log retrieval operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
-//
-// Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
-func (_USDN *USDNFilterer) FilterApproval(opts *bind.FilterOpts, owner []common.Address, spender []common.Address) (*USDNApprovalIterator, error) {
-
-	var ownerRule []interface{}
-	for _, ownerItem := range owner {
-		ownerRule = append(ownerRule, ownerItem)
-	}
-	var spenderRule []interface{}
-	for _, spenderItem := range spender {
-		spenderRule = append(spenderRule, spenderItem)
-	}
-
-	logs, sub, err := _USDN.contract.FilterLogs(opts, "Approval", ownerRule, spenderRule)
-	if err != nil {
-		return nil, err
-	}
-	return &USDNApprovalIterator{contract: _USDN.contract, event: "Approval", logs: logs, sub: sub}, nil
-}
-
-// WatchApproval is a free log subscription operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
-//
-// Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
-func (_USDN *USDNFilterer) WatchApproval(opts *bind.WatchOpts, sink chan<- *USDNApproval, owner []common.Address, spender []common.Address) (event.Subscription, error) {
-
-	var ownerRule []interface{}
-	for _, ownerItem := range owner {
-		ownerRule = append(ownerRule, ownerItem)
-	}
-	var spenderRule []interface{}
-	for _, spenderItem := range spender {
-		spenderRule = append(spenderRule, spenderItem)
-	}
-
-	logs, sub, err := _USDN.contract.WatchLogs(opts, "Approval", ownerRule, spenderRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(USDNApproval)
-				if err := _USDN.contract.UnpackLog(event, "Approval", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseApproval is a log parse operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
-//
-// Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
-func (_USDN *USDNFilterer) ParseApproval(log types.Log) (*USDNApproval, error) {
-	event := new(USDNApproval)
-	if err := _USDN.contract.UnpackLog(event, "Approval", log); err != nil {
-		return nil, err
-	}
-	return event, nil
-}
-
-// USDNDeprecateIterator is returned from FilterDeprecate and is used to iterate over the raw logs and unpacked data for Deprecate events raised by the USDN contract.
-type USDNDeprecateIterator struct {
-	Event *USDNDeprecate // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *USDNDeprecateIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(USDNDeprecate)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(USDNDeprecate)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *USDNDeprecateIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *USDNDeprecateIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// USDNDeprecate represents a Deprecate event raised by the USDN contract.
-type USDNDeprecate struct {
-	Account common.Address
-	Raw     types.Log // Blockchain specific contextual infos
-}
-
-// FilterDeprecate is a free log retrieval operation binding the contract event 0xcc358699805e9a8b7f77b522628c7cb9abd07d9efb86b6fb616af1609036a99e.
-//
-// Solidity: event Deprecate(address indexed account)
-func (_USDN *USDNFilterer) FilterDeprecate(opts *bind.FilterOpts, account []common.Address) (*USDNDeprecateIterator, error) {
-
-	var accountRule []interface{}
-	for _, accountItem := range account {
-		accountRule = append(accountRule, accountItem)
-	}
-
-	logs, sub, err := _USDN.contract.FilterLogs(opts, "Deprecate", accountRule)
-	if err != nil {
-		return nil, err
-	}
-	return &USDNDeprecateIterator{contract: _USDN.contract, event: "Deprecate", logs: logs, sub: sub}, nil
-}
-
-// WatchDeprecate is a free log subscription operation binding the contract event 0xcc358699805e9a8b7f77b522628c7cb9abd07d9efb86b6fb616af1609036a99e.
-//
-// Solidity: event Deprecate(address indexed account)
-func (_USDN *USDNFilterer) WatchDeprecate(opts *bind.WatchOpts, sink chan<- *USDNDeprecate, account []common.Address) (event.Subscription, error) {
-
-	var accountRule []interface{}
-	for _, accountItem := range account {
-		accountRule = append(accountRule, accountItem)
-	}
-
-	logs, sub, err := _USDN.contract.WatchLogs(opts, "Deprecate", accountRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(USDNDeprecate)
-				if err := _USDN.contract.UnpackLog(event, "Deprecate", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseDeprecate is a log parse operation binding the contract event 0xcc358699805e9a8b7f77b522628c7cb9abd07d9efb86b6fb616af1609036a99e.
-//
-// Solidity: event Deprecate(address indexed account)
-func (_USDN *USDNFilterer) ParseDeprecate(log types.Log) (*USDNDeprecate, error) {
-	event := new(USDNDeprecate)
-	if err := _USDN.contract.UnpackLog(event, "Deprecate", log); err != nil {
-		return nil, err
-	}
-	return event, nil
-}
-
-// USDNRewardIterator is returned from FilterReward and is used to iterate over the raw logs and unpacked data for Reward events raised by the USDN contract.
-type USDNRewardIterator struct {
-	Event *USDNReward // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *USDNRewardIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(USDNReward)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(USDNReward)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *USDNRewardIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *USDNRewardIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// USDNReward represents a Reward event raised by the USDN contract.
-type USDNReward struct {
-	Id     *big.Int
-	Amount *big.Int
-	Raw    types.Log // Blockchain specific contextual infos
-}
-
-// FilterReward is a free log retrieval operation binding the contract event 0x45cad8c10023de80f4c0672ff6c283b671e11aa93c92b9380cdf060d2790da52.
-//
-// Solidity: event Reward(uint256 id, uint256 amount)
-func (_USDN *USDNFilterer) FilterReward(opts *bind.FilterOpts) (*USDNRewardIterator, error) {
-
-	logs, sub, err := _USDN.contract.FilterLogs(opts, "Reward")
-	if err != nil {
-		return nil, err
-	}
-	return &USDNRewardIterator{contract: _USDN.contract, event: "Reward", logs: logs, sub: sub}, nil
-}
-
-// WatchReward is a free log subscription operation binding the contract event 0x45cad8c10023de80f4c0672ff6c283b671e11aa93c92b9380cdf060d2790da52.
-//
-// Solidity: event Reward(uint256 id, uint256 amount)
-func (_USDN *USDNFilterer) WatchReward(opts *bind.WatchOpts, sink chan<- *USDNReward) (event.Subscription, error) {
-
-	logs, sub, err := _USDN.contract.WatchLogs(opts, "Reward")
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(USDNReward)
-				if err := _USDN.contract.UnpackLog(event, "Reward", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseReward is a log parse operation binding the contract event 0x45cad8c10023de80f4c0672ff6c283b671e11aa93c92b9380cdf060d2790da52.
-//
-// Solidity: event Reward(uint256 id, uint256 amount)
-func (_USDN *USDNFilterer) ParseReward(log types.Log) (*USDNReward, error) {
-	event := new(USDNReward)
-	if err := _USDN.contract.UnpackLog(event, "Reward", log); err != nil {
-		return nil, err
-	}
-	return event, nil
-}
-
-// USDNTransferIterator is returned from FilterTransfer and is used to iterate over the raw logs and unpacked data for Transfer events raised by the USDN contract.
-type USDNTransferIterator struct {
-	Event *USDNTransfer // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *USDNTransferIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(USDNTransfer)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(USDNTransfer)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *USDNTransferIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *USDNTransferIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// USDNTransfer represents a Transfer event raised by the USDN contract.
-type USDNTransfer struct {
-	From  common.Address
-	To    common.Address
-	Value *big.Int
-	Raw   types.Log // Blockchain specific contextual infos
-}
-
-// FilterTransfer is a free log retrieval operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
-//
-// Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
-func (_USDN *USDNFilterer) FilterTransfer(opts *bind.FilterOpts, from []common.Address, to []common.Address) (*USDNTransferIterator, error) {
-
-	var fromRule []interface{}
-	for _, fromItem := range from {
-		fromRule = append(fromRule, fromItem)
-	}
-	var toRule []interface{}
-	for _, toItem := range to {
-		toRule = append(toRule, toItem)
-	}
-
-	logs, sub, err := _USDN.contract.FilterLogs(opts, "Transfer", fromRule, toRule)
-	if err != nil {
-		return nil, err
-	}
-	return &USDNTransferIterator{contract: _USDN.contract, event: "Transfer", logs: logs, sub: sub}, nil
-}
-
-// WatchTransfer is a free log subscription operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
-//
-// Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
-func (_USDN *USDNFilterer) WatchTransfer(opts *bind.WatchOpts, sink chan<- *USDNTransfer, from []common.Address, to []common.Address) (event.Subscription, error) {
-
-	var fromRule []interface{}
-	for _, fromItem := range from {
-		fromRule = append(fromRule, fromItem)
-	}
-	var toRule []interface{}
-	for _, toItem := range to {
-		toRule = append(toRule, toItem)
-	}
-
-	logs, sub, err := _USDN.contract.WatchLogs(opts, "Transfer", fromRule, toRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(USDNTransfer)
-				if err := _USDN.contract.UnpackLog(event, "Transfer", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseTransfer is a log parse operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
-//
-// Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
-func (_USDN *USDNFilterer) ParseTransfer(log types.Log) (*USDNTransfer, error) {
-	event := new(USDNTransfer)
-	if err := _USDN.contract.UnpackLog(event, "Transfer", log); err != nil {
 		return nil, err
 	}
 	return event, nil

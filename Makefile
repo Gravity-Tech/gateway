@@ -13,7 +13,7 @@ ethereum:
 	# USDN
 	abigen --pkg=erc20 --sol="./contracts/stakable/USDN.sol" --out="./abi/ethereum/usdn-erc20/erc20.go"
 	# Autostaking NSBT
-	abigen --pkg=erc20 --sol="./contracts/stakable/USDN.sol" --out="./abi/ethereum/gwa-nsbt/erc20.go"
+	abigen --pkg=erc20 --sol="./contracts/stakable/NSBT.sol" --out="./abi/ethereum/gwa-nsbt/erc20.go"
 	# Autostaking IB Port
 	abigen --pkg=ibport --sol="./contracts/stakable/IBPort.sol" --out="./abi/ethereum/autostaking-ibport/ibport.go"
 	echo "Ethereum abi updated"
