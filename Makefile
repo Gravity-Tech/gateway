@@ -10,6 +10,8 @@ ethereum:
 	abigen --pkg=erc20 --sol="./contracts/ethereum/Token.sol" --out="./abi/ethereum/erc20/erc20.go"
 	# USDN
 	abigen --pkg=erc20 --sol="./contracts/stakable/USDN.sol" --out="./abi/ethereum/usdn-erc20/erc20.go"
+	# SWOP
+	abigen --pkg=erc20 --sol="./contracts/stakable/SWOP.sol" --out="./abi/ethereum/swop-erc20/erc20.go"
 	# Autostaking NSBT
 	abigen --pkg=erc20 --sol="./contracts/stakable/NSBT.sol" --out="./abi/ethereum/gwa-nsbt/erc20.go"
 	# Autostaking IB Port
