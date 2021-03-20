@@ -1,6 +1,5 @@
 pragma solidity <=0.7;
 
-import "../ethereum/interfaces/Ownable.sol";
 import "./StandartToken.sol";
 
 
