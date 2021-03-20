@@ -4,13 +4,13 @@ import "../ethereum/interfaces/Ownable.sol";
 import "./StandartToken.sol";
 
 
-contract USDN is StandartToken {
+contract SWOP is StandartToken {
   function name() external pure returns (string memory) {
-    return "Wrapped Neutrino USD";
+    return "Wrapped SWOP";
   }
 
   function symbol() external pure returns (string memory) {
-    return "gwUSDN";
+    return "gwSWOP";
   }
 
   function decimals() external pure returns (uint8) {
