@@ -76,7 +76,7 @@ contract LUPort is ISubscriberBytes, Ownable {
     }
 
     function processUnlock(uint swapId, uint amount, address receiver) internal {
-	    require(requests[swapId].status == RequestStatus.None, "request is already processed")
+        require(requests[swapId].status == RequestStatus.None, "request is already processed");
         require(tokenAddress.transfer(receiver, amount), "can't transfer from contract");
         requests[swapId] = Request(receiver, amount, 0, RequestStatus.Completed);
     }
